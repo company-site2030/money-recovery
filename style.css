@@ -3,6 +3,7 @@ body {
   margin: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: url('https://images.unsplash.com/photo-1508780709619-79562169bc64?auto=format&fit=crop&w=1950&q=80') no-repeat center center/cover;
+  background-size: cover;
   color: #fff;
 }
 
@@ -25,7 +26,7 @@ body {
   z-index: 1000;
 }
 
-.header-logo { font-weight: bold; font-size: 1.3rem; }
+.header-logo { font-weight: bold; font-size: 1.1rem; } /* أصغر على الجوال */
 .header-nav a, .header-nav button { margin-left: 10px; }
 
 /* ========== BUTTONS ========== */
@@ -56,12 +57,12 @@ body {
 
 /* ========== LANDING PAGE ========== */
 .landing-section { display: flex; justify-content: center; align-items: center; height: 100vh; padding-top: 60px; }
-.landing-content { max-width: 1000px; padding: 30px; border-radius: 20px; backdrop-filter: blur(15px); background: rgba(255,255,255,0.1); box-shadow: 0 8px 32px rgba(0,0,0,0.2); }
+.landing-content { max-width: 1000px; padding: 30px; border-radius: 20px; backdrop-filter: blur(15px); background: rgba(255,255,255,0.1); box-shadow: 0 8px 32px rgba(0,0,0,0.2); text-align: center; }
 .landing-content h1 { font-size: 2rem; margin-bottom: 20px; }
-.landing-content p { margin-bottom: 15px; line-height: 1.6; }
+.landing-content p { margin-bottom: 15px; line-height: 1.6; font-size: 1rem; }
 .banks-logos { display: flex; justify-content: space-around; flex-wrap: wrap; margin: 20px 0; }
 .bank { text-align: center; margin: 10px; }
-.bank img { width: 100px; height: auto; margin-bottom: 5px; }
+.bank img { width: 80px; height: auto; margin-bottom: 5px; }
 
 /* ========== DASHBOARD ========== */
 .dashboard-main { display: flex; flex-wrap: wrap; justify-content: space-around; margin-top: 100px; padding: 20px; }
@@ -78,9 +79,18 @@ body {
   .dashboard-main { flex-direction: column; align-items: center; } 
   .balance-section, .user-info { flex-basis: 100%; margin: 0 0 20px 0; } 
 }
+
 @media (max-width: 768px) { 
-  .glass-header { flex-direction: column; padding: 10px; } 
-  .header-nav { margin-bottom: 10px; } 
-  .landing-content { padding: 20px; } 
-  .banks-logos { flex-direction: column; align-items: center; } 
+  /* هيدر للجوال */
+  .glass-header { flex-direction: row; justify-content: space-between; padding: 10px; }
+  .header-logo { font-size: 1rem; }
+  .header-nav { display: flex; flex-direction: row; gap: 10px; }
+
+  /* الصفحة الرئيسية للجوال */
+  .landing-content { padding: 20px; font-size: 0.9rem; }
+  .banks-logos { flex-direction: column; align-items: center; }
+  .bank img { width: 60px; }
+
+  /* استمارات التسجيل والدخول */
+  .glass-form { max-width: 90%; padding: 20px; }
 }
