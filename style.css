@@ -6,13 +6,14 @@ body {
   color: #fff;
 }
 
-/* هيدر زجاجي متوسط الحجم */
+/* الهيدر */
 .glass-header {
   position: fixed;
-  top: 0;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
   width: 90%;
   max-width: 1200px;
-  margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -24,16 +25,10 @@ body {
   z-index: 1000;
 }
 
-.header-logo {
-  font-weight: bold;
-  font-size: 1.3rem;
-}
+.header-logo { font-weight: bold; font-size: 1.3rem; }
 
-.header-nav a, .header-nav button {
-  margin-left: 10px;
-}
+.header-nav a, .header-nav button { margin-left: 10px; }
 
-/* أزرار زجاجية */
 .glass-btn {
   padding: 8px 18px;
   border-radius: 10px;
@@ -45,151 +40,51 @@ body {
   transition: 0.3s;
 }
 
-.glass-btn:hover {
-  background: rgba(255,255,255,0.3);
-  box-shadow: 0 0 10px rgba(255,255,255,0.5);
-}
+.glass-btn:hover { background: rgba(255,255,255,0.3); box-shadow: 0 0 10px rgba(255,255,255,0.5); }
 
-/* Landing */
-.landing-section {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  padding-top: 80px;
-}
+.green-btn { background: rgba(0,200,0,0.3); border-color: rgba(0,200,0,0.5); }
 
-.landing-content {
-  max-width: 800px;
-  text-align: center;
-  padding: 30px;
-  border-radius: 20px;
-  backdrop-filter: blur(15px);
-  background: rgba(255,255,255,0.1);
-  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
-}
+/* Right aligned forms */
+.right-align input { direction: rtl; text-align: right; }
 
-.landing-content h1 {
-  font-size: 2rem;
-  margin-bottom: 20px;
-}
-
-.landing-content p {
-  margin-bottom: 15px;
-  line-height: 1.6;
-}
-
-/* البنوك */
-.banks-logos {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  margin: 20px 0;
-}
-
-.bank {
-  text-align: center;
-  margin: 10px;
-}
-
-.bank img {
-  width: 100px;
-  height: auto;
-  margin-bottom: 5px;
-}
-
-/* Forms */
 .glass-form-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  padding-top: 60px;
+  display: flex; justify-content: center; align-items: center;
+  height: 100vh; padding-top: 60px;
 }
 
 .glass-form {
-  display: flex;
-  flex-direction: column;
-  padding: 30px;
-  border-radius: 20px;
+  display: flex; flex-direction: column;
+  padding: 30px; border-radius: 20px;
   backdrop-filter: blur(15px);
   background: rgba(255,255,255,0.1);
   box-shadow: 0 8px 32px rgba(0,0,0,0.2);
-  max-width: 400px;
-  width: 90%;
+  max-width: 400px; width: 90%;
 }
 
-.glass-form input {
-  margin: 8px 0;
-  padding: 10px;
-  border-radius: 10px;
-  border: none;
-}
+.glass-form input { margin: 8px 0; padding: 10px; border-radius: 10px; border: none; }
 
-/* Dashboard */
 .dashboard-main {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  margin-top: 100px;
-  padding: 20px;
+  display: flex; flex-wrap: wrap; justify-content: space-around;
+  margin-top: 100px; padding: 20px;
 }
 
 .dashboard-main section {
-  margin: 15px;
-  padding: 20px;
-  flex: 1 1 300px;
-  border-radius: 20px;
-  backdrop-filter: blur(15px);
-  background: rgba(255,255,255,0.1);
-  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+  margin: 15px; padding: 20px; flex: 1 1 300px;
+  border-radius: 20px; backdrop-filter: blur(15px);
+  background: rgba(255,255,255,0.1); box-shadow: 0 8px 32px rgba(0,0,0,0.2);
 }
 
-.balance-amount {
-  font-size: 2rem;
-  margin: 10px 0;
-}
+.balance-amount { font-size: 2rem; margin: 10px 0; }
 
-.withdraw-form input {
-  width: 90%;
-  margin: 5px 0;
-  padding: 8px;
-  border-radius: 8px;
-  border: none;
-}
+.withdraw-form input { width: 90%; margin: 5px 0; padding: 8px; border-radius: 8px; border: none; }
 
-.transactions ul {
-  list-style: none;
-  padding: 0;
-  max-height: 300px;
-  overflow-y: auto;
-}
+.transactions ul { list-style: none; padding: 0; max-height: 300px; overflow-y: auto; }
 
-.transactions li {
-  background: rgba(255,255,255,0.1);
-  margin: 5px 0;
-  padding: 10px;
-  border-radius: 10px;
-}
+.transactions li { background: rgba(255,255,255,0.1); margin: 5px 0; padding: 10px; border-radius: 10px; }
 
 /* Responsive */
 @media (max-width: 768px) {
-  .dashboard-main {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .banks-logos {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .glass-header {
-    flex-direction: column;
-    padding: 10px;
-  }
-
-  .header-nav {
-    margin-bottom: 10px;
-  }
+  .dashboard-main { flex-direction: column; align-items: center; }
+  .glass-header { flex-direction: column; padding: 10px; }
+  .header-nav { margin-bottom: 10px; }
 }
