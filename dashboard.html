@@ -1,44 +1,44 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>لوحة التحكم</title>
-  <link rel="stylesheet" href="style.css">
-  <script type="module" src="app.js" defer></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>لوحة التحكم</title>
+<link rel="stylesheet" href="style.css">
+<script type="module" src="app.js" defer></script>
 </head>
 <body>
-  <header class="glass-header">
-    <div class="header-logo">مؤسسة استرجاع الأموال</div>
-    <nav>
-      <button id="logout" class="glass-btn">تسجيل خروج</button>
-    </nav>
-  </header>
+<header class="glass-header">
+  <div class="header-logo">مؤسسة استرجاع الأموال</div>
+  <nav>
+    <button id="logout" class="glass-btn">تسجيل خروج</button>
+  </nav>
+</header>
 
-  <main class="dashboard-main">
-    <section class="user-info glass">
-      <h2>معلومات العميل</h2>
-      <div id="userInfo"></div>
-    </section>
+<main class="dashboard-main">
+  <section class="balance-section glass">
+    <h2>الرصيد المتاح</h2>
+    <div id="balance" class="balance-amount">0 USD</div>
+    <button id="withdrawBtn" class="glass-btn green-btn">سحب</button>
 
-    <section class="balance-section glass">
-      <h2>الرصيد المتاح</h2>
-      <div id="balance" class="balance-amount">0 USD</div>
-      <button id="withdrawBtn" class="glass-btn green-btn">سحب</button>
+    <div id="withdrawForm" style="display:none;" class="withdraw-form glass">
+      <input type="text" id="bankName" placeholder="اسم البنك" required>
+      <input type="text" id="country" placeholder="الدولة" required>
+      <input type="number" id="amount" placeholder="المبلغ" required>
+      <input type="text" id="iban" placeholder="رقم الآيبان" required>
+      <button id="confirmWithdraw" class="glass-btn green-btn">تأكيد السحب</button>
+    </div>
+  </section>
 
-      <div id="withdrawForm" style="display:none;" class="withdraw-form glass">
-        <input type="text" id="bankName" placeholder="اسم البنك" required>
-        <input type="text" id="country" placeholder="الدولة" required>
-        <input type="number" id="amount" placeholder="المبلغ" required>
-        <input type="text" id="iban" placeholder="رقم الآيبان" required>
-        <button id="confirmWithdraw" class="glass-btn green-btn">تأكيد السحب</button>
-      </div>
-    </section>
+  <section class="user-info glass">
+    <h2>معلومات العميل</h2>
+    <div id="userInfo"></div>
+  </section>
 
-    <section class="transactions glass">
-      <h2>سجل العمليات</h2>
-      <ul id="transactionsList"></ul>
-    </section>
-  </main>
+  <section class="transactions glass">
+    <h2>سجل العمليات</h2>
+    <ul id="transactionsList"></ul>
+  </section>
+</main>
 </body>
 </html>
