@@ -1,17 +1,9 @@
 /* ========== BODY ========== */
-/* داخل style.css */
 body {
-  background: url("background.jpg") no-repeat center center fixed;
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: url('assets/images/background.jpg') no-repeat center center/cover;
   background-size: cover;
-}
-
-.glass {
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-radius: 15px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  padding: 20px;
   color: #fff;
 }
 
@@ -48,8 +40,14 @@ body {
   cursor: pointer;
   transition: 0.3s;
 }
-.glass-btn:hover { background: rgba(255,255,255,0.3); box-shadow: 0 0 10px rgba(255,255,255,0.5); }
-.green-btn { background: rgba(0,200,0,0.3); border-color: rgba(0,200,0,0.5); }
+.glass-btn:hover { 
+  background: rgba(255,255,255,0.3); 
+  box-shadow: 0 0 10px rgba(255,255,255,0.5); 
+}
+.green-btn { 
+  background: rgba(0,200,0,0.3); 
+  border-color: rgba(0,200,0,0.5); 
+}
 
 /* ========== FORMS ========== */
 .right-align input { direction: rtl; text-align: right; }
@@ -77,5 +75,13 @@ body {
 .transactions li { background: rgba(255,255,255,0.1); margin: 5px 0; padding: 10px; border-radius: 10px; }
 
 /* ========== RESPONSIVE ========== */
-@media (max-width: 1024px) { .dashboard-main { flex-direction: column; align-items: center; } .balance-section, .user-info { flex-basis: 100%; margin: 0 0 20px 0; } }
-@media (max-width: 768px) { .glass-header { flex-direction: column; padding: 10px; } .header-nav { margin-bottom: 10px; } .landing-content { padding: 20px; } .banks-logos { flex-direction: column; align-items: center; } }
+@media (max-width: 1024px) { 
+  .dashboard-main { flex-direction: column; align-items: center; } 
+  .balance-section, .user-info { flex-basis: 100%; margin: 0 0 20px 0; } 
+}
+@media (max-width: 768px) { 
+  .glass-header { flex-direction: column; padding: 10px; } 
+  .header-nav { margin-bottom: 10px; } 
+  .landing-content { padding: 20px; } 
+  .banks-logos { flex-direction: column; align-items: center; } 
+}
