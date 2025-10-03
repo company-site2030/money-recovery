@@ -1,3 +1,4 @@
+// Import Firebase modules
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-analytics.js";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
@@ -59,6 +60,18 @@ if(loginForm){
 /* ======= Dashboard ======= */
 const urlParams = new URLSearchParams(window.location.search);
 const uid = urlParams.get('uid');
+
+const logoutBtn = document.getElementById('logout');
+if(logoutBtn){
+  logoutBtn.addEventListener('click', async () => {
+    try {
+      await signOut(auth);
+      window.location.href = "index.html";
+    } catch (error) {
+      alert("حدث خطأ أثناء تسجيل الخروج: " + error.message);
+    }
+  });
+}
 
 const userInfoDiv = document.getElementById('userInfo');
 const balanceDiv = document.getElementById('balance');
