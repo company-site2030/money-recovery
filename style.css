@@ -1,9 +1,17 @@
 /* ========== BODY ========== */
+/* داخل style.css */
 body {
-  margin: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: url('assets/images/background.jpg') no-repeat center center/cover;
+  background: url("background.jpg") no-repeat center center fixed;
   background-size: cover;
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 20px;
   color: #fff;
 }
 
