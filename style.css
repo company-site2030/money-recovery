@@ -2,14 +2,13 @@ body {
   margin: 0;
   font-family: "Tajawal", sans-serif;
   direction: rtl;
-  background: #0f2027;
   background: linear-gradient(135deg, rgba(15,32,39,0.9), rgba(32,58,67,0.9), rgba(44,83,100,0.9));
   color: #fff;
 }
 
 /* خلفية زجاجية عامة */
 .glass {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255,255,255,0.1);
   backdrop-filter: blur(12px);
   border-radius: 20px;
   padding: 20px;
@@ -23,174 +22,60 @@ body {
   max-width: 1100px;
   margin: 0 auto;
   padding: 15px 20px;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(15px);
   border-radius: 0 0 20px 20px;
 }
 
-.header-logo {
-  font-size: 20px;
-  font-weight: bold;
-}
-
-.header-nav {
-  display: flex;
-  gap: 15px;
-}
+.header-logo { font-size: 20px; font-weight: bold; }
+.header-nav { display: flex; gap: 15px; }
 
 .glass-btn {
   padding: 10px 20px;
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255,255,255,0.15);
   border-radius: 12px;
   color: #fff;
   text-decoration: none;
   transition: 0.3s;
 }
+.glass-btn:hover { background: rgba(255,255,255,0.3); }
 
-.glass-btn:hover {
-  background: rgba(255, 255, 255, 0.3);
-}
-
-.green-btn {
-  background: #28a745;
-}
-.green-btn:hover {
-  background: #218838;
-}
+.green-btn { background: #28a745; }
+.green-btn:hover { background: #218838; }
 
 /* الصفحة الرئيسية */
-.landing-section {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 90vh;
-  text-align: center;
-  padding: 20px;
-}
-
-.landing-content h1 {
-  font-size: 28px;
-  margin-bottom: 15px;
-}
-
-.landing-content p {
-  font-size: 18px;
-  line-height: 1.6;
-}
-
-.banks-logos {
-  display: flex;
-  justify-content: center;
-  gap: 25px;
-  margin: 25px 0;
-  flex-wrap: wrap;
-}
-
-.bank img {
-  width: 100px;
-  height: auto;
-  background: #fff;
-  border-radius: 12px;
-  padding: 6px;
-}
+.landing-section { display: flex; justify-content: center; align-items: center; min-height: 90vh; text-align:center; padding:20px;}
+.landing-content h1 { font-size:28px; margin-bottom:15px; }
+.landing-content p { font-size:18px; line-height:1.6; }
+.banks-logos { display:flex; justify-content:center; gap:25px; flex-wrap:wrap; margin:25px 0;}
+.bank img { width:100px; height:auto; background:#fff; border-radius:12px; padding:6px;}
 
 /* فورم */
 .form-container {
-  max-width: 400px;
+  max-width: 320px;
   margin: 80px auto;
   padding: 25px;
 }
-
-.form-container input,
-.form-container button {
-  width: 100%;
-  padding: 12px;
-  margin: 8px 0;
-  border: none;
-  border-radius: 10px;
-  font-size: 16px;
-}
-
-.form-container input {
-  background: rgba(255, 255, 255, 0.9);
-  color: #000;
-}
-
-.form-container button {
-  background: #28a745;
-  color: #fff;
-  font-weight: bold;
-}
-
-/* مركزية النص */
-.center-text {
-  text-align: center;
-}
+.form-container input, .form-container button { width: 100%; padding: 10px; margin: 8px 0; border:none; border-radius:10px; font-size:16px;}
+.form-container input { background: rgba(255,255,255,0.9); color:#000;}
+.form-container button { background: #28a745; color:#fff; font-weight:bold;}
+.center-text { text-align:center; }
 
 /* داشبورد */
-.dashboard {
-  max-width: 1000px;
-  margin: 30px auto;
-  padding: 20px;
-}
-
-.dashboard-header {
-  display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-
-.user-info, .balance-box {
-  flex: 1;
-  min-width: 250px;
-}
-
-.balance-box {
-  text-align: center;
-}
-
-.balance-box .amount {
-  font-size: 26px;
-  font-weight: bold;
-  margin: 10px 0;
-}
-
-.transactions table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 15px;
-}
-
-.transactions th, .transactions td {
-  border-bottom: 1px solid rgba(255,255,255,0.2);
-  padding: 10px;
-  text-align: center;
-}
+.dashboard { max-width:1000px; margin:30px auto; padding:20px; }
+.dashboard-header { display:flex; gap:20px; flex-wrap:wrap; }
+.user-info, .balance-box { flex:1; min-width:200px; }
+.smaller-box { padding:15px; border-radius:15px; }
+.balance-box { text-align:center; }
+.balance-box .amount { font-size:24px; font-weight:bold; margin:10px 0;}
+.transactions table { width:100%; border-collapse:collapse; margin-top:15px;}
+.transactions th, .transactions td { border-bottom:1px solid rgba(255,255,255,0.2); padding:10px; text-align:center;}
 
 /* الجوال */
-@media (max-width: 768px) {
-  .glass-header {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .header-logo {
-    font-size: 16px;
-  }
-
-  .landing-content h1 {
-    font-size: 22px;
-  }
-
-  .landing-content p {
-    font-size: 15px;
-  }
-
-  .bank img {
-    width: 80px;
-  }
-
-  .dashboard-header {
-    flex-direction: column;
-  }
+@media (max-width:768px){
+  .glass-header{ flex-direction:column; gap:10px; }
+  .header-logo{ font-size:16px; }
+  .landing-content h1{ font-size:22px; }
+  .landing-content p{ font-size:15px; }
+  .bank img{ width:80px; }
+  .dashboard-header{ flex-direction:column; }
+  .form-container{ max-width:90%; }
 }
