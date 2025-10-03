@@ -1,53 +1,54 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>لوحة التحكم</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
   <script type="module" src="app.js" defer></script>
 </head>
 <body>
-
-  <!-- الهيدر -->
-  <header class="glass-header">
-    <div class="header-logo">مؤسسة استرجاع الأموال</div>
-    <nav>
-      <button id="logout" class="glass-btn">تسجيل خروج</button>
-    </nav>
-  </header>
-
-  <!-- الداشبورد -->
-  <main class="dashboard-main">
-
-    <!-- الرصيد + زر السحب -->
-    <section class="balance-section glass">
-      <h2>الرصيد المتاح</h2>
-      <div id="balance" class="balance-amount">0 USD</div>
-      <button id="withdrawBtn" class="glass-btn green-btn">سحب</button>
-
-      <div id="withdrawForm" style="display:none;" class="withdraw-form glass">
-        <input type="text" id="bankName" placeholder="اسم البنك" required>
-        <input type="text" id="country" placeholder="الدولة" required>
-        <input type="number" id="amount" placeholder="المبلغ" required>
-        <input type="text" id="iban" placeholder="رقم الآيبان" required>
-        <button id="confirmWithdraw" class="glass-btn green-btn">تأكيد السحب</button>
+  <div class="dashboard glass">
+    <div class="dashboard-header">
+      <div class="user-info">
+        <h3>بيانات العميل</h3>
+        <p><strong>الاسم:</strong> <span id="userName">---</span></p>
+        <p><strong>رقم الهوية:</strong> <span id="userId">---</span></p>
+        <p><strong>البريد:</strong> <span id="userEmail">---</span></p>
+        <p><strong>الهاتف:</strong> <span id="userPhone">---</span></p>
       </div>
-    </section>
 
-    <!-- بيانات العميل -->
-    <section class="user-info glass">
-      <h2>معلومات العميل</h2>
-      <div id="userInfo"></div>
-    </section>
+      <div class="balance-box">
+        <h3>الرصيد المتاح</h3>
+        <p class="amount" id="userBalance">0.00 $</p>
+        <button id="withdrawBtn" class="glass-btn green-btn">سحب</button>
+      </div>
+    </div>
 
-    <!-- سجل العمليات -->
-    <section class="transactions glass">
-      <h2>سجل العمليات</h2>
-      <ul id="transactionsList"></ul>
-    </section>
+    <div id="withdrawSection" class="withdraw-form" style="display:none;">
+      <h3>طلب سحب</h3>
+      <input type="text" id="bankName" placeholder="اسم البنك" required />
+      <input type="text" id="country" placeholder="البلد" required />
+      <input type="text" id="iban" placeholder="رقم الآيبان" required />
+      <input type="number" id="withdrawAmount" placeholder="المبلغ المطلوب" required />
+      <button id="confirmWithdraw" class="glass-btn green-btn">تأكيد السحب</button>
+    </div>
 
-  </main>
-
+    <div class="transactions">
+      <h3>سجل العمليات</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>التاريخ</th>
+            <th>النوع</th>
+            <th>المبلغ</th>
+          </tr>
+        </thead>
+        <tbody id="transactionsList">
+          <tr><td colspan="3">لا توجد عمليات بعد</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </body>
 </html>
