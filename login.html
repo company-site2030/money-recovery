@@ -3,24 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>تسجيل دخول - مؤسسة استرجاع الأموال</title>
+  <title>تسجيل دخول</title>
   <link rel="stylesheet" href="style.css" />
   <script type="module" src="app.js" defer></script>
 </head>
 <body>
-  <div class="glass-form-container">
-    <form id="loginForm" class="glass-form right-align">
-      <h2 style="text-align:center; margin: 0 0 16px;">تسجيل الدخول</h2>
-
+  <div class="form-container glass">
+    <h2 class="center-text">تسجيل الدخول</h2>
+    <form id="loginForm">
       <input type="email" id="loginEmail" placeholder="البريد الإلكتروني" required />
       <input type="password" id="loginPassword" placeholder="كلمة المرور" required />
-
       <button type="submit" class="glass-btn">دخول</button>
-
-      <p style="text-align:center; margin-top:12px;">
-        ليس لديك حساب؟ <a href="register.html">تسجيل جديد</a>
-      </p>
     </form>
+    <p class="center-text">ليس لديك حساب؟ <a href="register.html">سجل الآن</a></p>
   </div>
 </body>
 </html>
