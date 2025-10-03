@@ -46,11 +46,11 @@ body {
 .landing-content h1 { font-size:28px; margin-bottom:15px; }
 .landing-content p { font-size:18px; line-height:1.6; }
 .banks-logos { display:flex; justify-content:center; gap:25px; flex-wrap:wrap; margin:25px 0;}
-.bank img { width:100px; height:auto; background:#fff; border-radius:12px; padding:6px;}
+.bank img { width:100px; height:auto; border-radius:12px; padding:6px;}
 
 /* فورم */
 .form-container {
-  max-width: 320px;
+  max-width: 300px;
   margin: 80px auto;
   padding: 25px;
 }
@@ -66,8 +66,8 @@ body {
 .smaller-box { padding:15px; border-radius:15px; }
 .balance-box { text-align:center; }
 .balance-box .amount { font-size:24px; font-weight:bold; margin:10px 0;}
-.transactions table { width:100%; border-collapse:collapse; margin-top:15px;}
-.transactions th, .transactions td { border-bottom:1px solid rgba(255,255,255,0.2); padding:10px; text-align:center;}
+.transactions ul { list-style:none; padding:0; }
+.transactions li { padding:5px 0; border-bottom:1px solid rgba(255,255,255,0.2); }
 
 /* الجوال */
 @media (max-width:768px){
