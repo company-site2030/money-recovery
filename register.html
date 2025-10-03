@@ -1,26 +1,29 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>تسجيل حساب جديد</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>تسجيل جديد - مؤسسة استرجاع الأموال</title>
+  <link rel="stylesheet" href="style.css" />
   <script type="module" src="app.js" defer></script>
 </head>
 <body>
+  <div class="glass-form-container">
+    <form id="registerForm" class="glass-form right-align">
+      <h2 style="text-align:center; margin: 0 0 16px;">تسجيل حساب جديد</h2>
 
-  <div class="form-container glass">
-    <h2 class="form-title center-text">تسجيل حساب جديد</h2>
-    <form id="registerForm">
-      <input type="text" id="fullName" placeholder="الاسم الكامل" required>
-      <input type="text" id="idNumber" placeholder="رقم الهوية / الإقامة" required>
-      <input type="email" id="email" placeholder="البريد الإلكتروني" required>
-      <input type="tel" id="phone" placeholder="رقم الهاتف" required>
-      <input type="password" id="password" placeholder="كلمة المرور" required>
+      <input type="text" id="fullName" placeholder="الاسم الكامل" required />
+      <input type="text" id="idNumber" placeholder="رقم الهوية / الإقامة" required />
+      <input type="email" id="email" placeholder="البريد الإلكتروني" required />
+      <input type="tel" id="phone" placeholder="رقم الهاتف" required />
+      <input type="password" id="password" placeholder="كلمة المرور" required />
+
       <button type="submit" class="glass-btn">تسجيل</button>
-    </form>
-    <p>لديك حساب؟ <a href="login.html">تسجيل دخول</a></p>
-  </div>
 
+      <p style="text-align:center; margin-top:12px;">
+        هل لديك حساب؟ <a href="login.html">تسجيل دخول</a>
+      </p>
+    </form>
+  </div>
 </body>
 </html>
