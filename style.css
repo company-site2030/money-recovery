@@ -1,4 +1,3 @@
-/* الخطوط والألوان */
 body {
   margin: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -7,40 +6,43 @@ body {
   color: #fff;
 }
 
-/* هيدر زجاجي */
+/* هيدر زجاجي متوسط الحجم */
 .glass-header {
   position: fixed;
   top: 0;
-  width: 100%;
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 30px;
+  padding: 10px 20px;
   background: rgba(255,255,255,0.1);
   backdrop-filter: blur(15px);
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
   z-index: 1000;
-  box-shadow: 0 4px 30px rgba(0,0,0,0.2);
 }
 
 .header-logo {
   font-weight: bold;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
 }
 
-nav a, nav button {
-  margin-left: 15px;
+.header-nav a, .header-nav button {
+  margin-left: 10px;
 }
 
 /* أزرار زجاجية */
 .glass-btn {
-  padding: 10px 20px;
+  padding: 8px 18px;
   border-radius: 10px;
   border: 1px solid rgba(255,255,255,0.3);
   background: rgba(255,255,255,0.1);
   color: #fff;
   text-decoration: none;
-  transition: 0.3s;
   cursor: pointer;
+  transition: 0.3s;
 }
 
 .glass-btn:hover {
@@ -48,24 +50,19 @@ nav a, nav button {
   box-shadow: 0 0 10px rgba(255,255,255,0.5);
 }
 
-.big-btn {
-  font-size: 1.2rem;
-  padding: 15px 30px;
-}
-
-/* قسم الصفحة الرئيسية */
+/* Landing */
 .landing-section {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  padding-top: 70px; /* لموازاة الهيدر */
+  padding-top: 80px;
 }
 
 .landing-content {
-  max-width: 600px;
+  max-width: 800px;
   text-align: center;
-  padding: 40px;
+  padding: 30px;
   border-radius: 20px;
   backdrop-filter: blur(15px);
   background: rgba(255,255,255,0.1);
@@ -73,8 +70,8 @@ nav a, nav button {
 }
 
 .landing-content h1 {
-  margin-bottom: 20px;
   font-size: 2rem;
+  margin-bottom: 20px;
 }
 
 .landing-content p {
@@ -82,12 +79,59 @@ nav a, nav button {
   line-height: 1.6;
 }
 
-/* داشبورد */
+/* البنوك */
+.banks-logos {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin: 20px 0;
+}
+
+.bank {
+  text-align: center;
+  margin: 10px;
+}
+
+.bank img {
+  width: 100px;
+  height: auto;
+  margin-bottom: 5px;
+}
+
+/* Forms */
+.glass-form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding-top: 60px;
+}
+
+.glass-form {
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  border-radius: 20px;
+  backdrop-filter: blur(15px);
+  background: rgba(255,255,255,0.1);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+  max-width: 400px;
+  width: 90%;
+}
+
+.glass-form input {
+  margin: 8px 0;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+}
+
+/* Dashboard */
 .dashboard-main {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  margin-top: 90px; /* لموازاة الهيدر */
+  margin-top: 100px;
   padding: 20px;
 }
 
@@ -128,10 +172,24 @@ nav a, nav button {
   border-radius: 10px;
 }
 
-/* تفاعل مع الموبايل */
+/* Responsive */
 @media (max-width: 768px) {
   .dashboard-main {
     flex-direction: column;
     align-items: center;
+  }
+
+  .banks-logos {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .glass-header {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .header-nav {
+    margin-bottom: 10px;
   }
 }
