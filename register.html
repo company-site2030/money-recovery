@@ -8,16 +8,17 @@
   <script type="module" src="app.js" defer></script>
 </head>
 <body>
-  <div class="glass">
-    <h2>تسجيل حساب جديد</h2>
-    <form id="registerForm">
+  <div class="glass-form-container">
+    <form id="registerForm" class="glass-form">
+      <h2>تسجيل حساب جديد</h2>
       <input type="text" id="fullName" placeholder="الاسم الكامل" required>
       <input type="text" id="idNumber" placeholder="رقم الهوية / الإقامة" required>
       <input type="email" id="email" placeholder="البريد الإلكتروني" required>
+      <input type="text" id="phone" placeholder="رقم الهاتف" required>
       <input type="password" id="password" placeholder="كلمة المرور" required>
-      <button type="submit">تسجيل</button>
+      <button type="submit" class="glass-btn">تسجيل</button>
+      <p>عندك حساب؟ <a href="login.html">سجل دخول</a></p>
     </form>
-    <p>عندك حساب؟ <a href="login.html">سجل دخول</a></p>
   </div>
 </body>
 </html>
