@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>لوحة التحكم</title>
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="app.js" defer></script>
+</head>
+<body>
+  <div class="glass">
+    <h2>لوحة العميل</h2>
+    <div id="userInfo"></div>
+    <h3>الرصيد: <span id="balance">0</span> USD</h3>
+
+    <button id="withdrawBtn">سحب</button>
+
+    <div id="withdrawForm" style="display:none;">
+      <input type="text" id="bankName" placeholder="اسم البنك" required>
+      <input type="text" id="country" placeholder="الدولة" required>
+      <input type="number" id="amount" placeholder="المبلغ" required>
+      <input type="text" id="iban" placeholder="رقم الآيبان" required>
+      <button id="confirmWithdraw">تأكيد السحب</button>
+    </div>
+
+    <h3>سجل العمليات</h3>
+    <ul id="transactionsList"></ul>
+
+    <button id="logout">تسجيل خروج</button>
+  </div>
+</body>
+</html>
