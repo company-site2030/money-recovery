@@ -10,44 +10,31 @@
 <body>
   <div class="dashboard glass">
     <div class="dashboard-header">
-      <div class="user-info smaller-box">
+      <div class="user-info smaller-box" id="userInfo">
         <h3>بيانات العميل</h3>
-        <p><strong>الاسم:</strong> <span id="userName">---</span></p>
-        <p><strong>رقم الهوية:</strong> <span id="userId">---</span></p>
-        <p><strong>البريد:</strong> <span id="userEmail">---</span></p>
-        <p><strong>الهاتف:</strong> <span id="userPhone">---</span></p>
       </div>
 
       <div class="balance-box smaller-box">
         <h3>الرصيد المتاح</h3>
-        <p class="amount" id="userBalance">0 $</p>
+        <p class="amount" id="balance">0 $</p>
         <button id="withdrawBtn" class="glass-btn green-btn">سحب</button>
       </div>
     </div>
 
-    <div id="withdrawSection" class="withdraw-form glass" style="display:none;">
+    <div id="withdrawForm" class="withdraw-form glass" style="display:none;">
       <h3>طلب سحب</h3>
       <input type="text" id="bankName" placeholder="اسم البنك" required>
       <input type="text" id="country" placeholder="البلد" required>
       <input type="text" id="iban" placeholder="رقم الآيبان" required>
-      <input type="number" id="withdrawAmount" placeholder="المبلغ المطلوب" required>
+      <input type="number" id="amount" placeholder="المبلغ المطلوب" required>
       <button id="confirmWithdraw" class="glass-btn green-btn">تأكيد السحب</button>
     </div>
 
     <div class="transactions glass">
       <h3>سجل العمليات</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>التاريخ</th>
-            <th>النوع</th>
-            <th>المبلغ</th>
-          </tr>
-        </thead>
-        <tbody id="transactionsList">
-          <tr><td colspan="3">لا توجد عمليات بعد</td></tr>
-        </tbody>
-      </table>
+      <ul id="transactionsList">
+        <li>لا توجد عمليات بعد</li>
+      </ul>
     </div>
   </div>
 </body>
