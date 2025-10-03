@@ -8,14 +8,14 @@
   <script type="module" src="app.js" defer></script>
 </head>
 <body>
-  <div class="glass">
-    <h2>تسجيل دخول</h2>
-    <form id="loginForm">
+  <div class="glass-form-container">
+    <form id="loginForm" class="glass-form">
+      <h2>تسجيل دخول</h2>
       <input type="email" id="loginEmail" placeholder="البريد الإلكتروني" required>
       <input type="password" id="loginPassword" placeholder="كلمة المرور" required>
-      <button type="submit">دخول</button>
+      <button type="submit" class="glass-btn">دخول</button>
+      <p>ما عندك حساب؟ <a href="register.html">تسجيل جديد</a></p>
     </form>
-    <p>ما عندك حساب؟ <a href="register.html">تسجيل جديد</a></p>
   </div>
 </body>
 </html>
