@@ -103,7 +103,5 @@ body {
 
   /* استمارات التسجيل والدخول */
   .glass-form { max-width: 90%; padding: 20px; }
-}.center-text {
-  text-align: center;
-}
+
 
