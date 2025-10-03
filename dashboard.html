@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>لوحة التحكم</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
   <script type="module" src="app.js" defer></script>
 </head>
 <body>
   <div class="dashboard glass">
     <div class="dashboard-header">
-      <div class="user-info">
+      <div class="user-info smaller-box">
         <h3>بيانات العميل</h3>
         <p><strong>الاسم:</strong> <span id="userName">---</span></p>
         <p><strong>رقم الهوية:</strong> <span id="userId">---</span></p>
@@ -18,23 +18,23 @@
         <p><strong>الهاتف:</strong> <span id="userPhone">---</span></p>
       </div>
 
-      <div class="balance-box">
+      <div class="balance-box smaller-box">
         <h3>الرصيد المتاح</h3>
-        <p class="amount" id="userBalance">0.00 $</p>
+        <p class="amount" id="userBalance">0 $</p>
         <button id="withdrawBtn" class="glass-btn green-btn">سحب</button>
       </div>
     </div>
 
-    <div id="withdrawSection" class="withdraw-form" style="display:none;">
+    <div id="withdrawSection" class="withdraw-form glass" style="display:none;">
       <h3>طلب سحب</h3>
-      <input type="text" id="bankName" placeholder="اسم البنك" required />
-      <input type="text" id="country" placeholder="البلد" required />
-      <input type="text" id="iban" placeholder="رقم الآيبان" required />
-      <input type="number" id="withdrawAmount" placeholder="المبلغ المطلوب" required />
+      <input type="text" id="bankName" placeholder="اسم البنك" required>
+      <input type="text" id="country" placeholder="البلد" required>
+      <input type="text" id="iban" placeholder="رقم الآيبان" required>
+      <input type="number" id="withdrawAmount" placeholder="المبلغ المطلوب" required>
       <button id="confirmWithdraw" class="glass-btn green-btn">تأكيد السحب</button>
     </div>
 
-    <div class="transactions">
+    <div class="transactions glass">
       <h3>سجل العمليات</h3>
       <table>
         <thead>
