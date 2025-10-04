@@ -67,62 +67,10 @@ body {
 .dashboard-header { display:flex; gap:20px; flex-wrap:wrap; }
 .user-info, .balance-box { flex:1; min-width:200px; }
 .smaller-box { padding:15px; border-radius:15px; }
-
-/* ✅ بيانات العميل داخل بطاقات زجاجية */
-.user-info .info-item {
-  padding: 10px;
-  background: rgba(255,255,255,0.15);
-  border-radius: 10px;
-  margin-bottom: 10px;
-  color: #fff;
-}
-
-/* ✅ تنسيق الرصيد */
-.balance-box {
-  text-align:center;
-}
-.balance-box .amount {
-  font-size: 24px;
-  font-weight: bold;
-  margin: 10px 0;
-  color: #28a745;
-  position: relative;
-}
-.balance-box .amount::before {
-  content: "$";
-  color: #28a745;
-  margin-left: 4px;
-  font-weight: bold;
-}
-
-/* ✅ نموذج السحب مرتب عموديًا */
-.withdraw-form input {
-  width: 100%;
-  margin-bottom: 10px;
-  padding: 10px;
-  border-radius: 8px;
-  border: none;
-  background: rgba(255,255,255,0.9);
-  color: #000;
-  font-size: 16px;
-}
-
-/* ✅ سجل العمليات */
-.transactions ul {
-  list-style: none;
-  padding: 0;
-}
-.transactions li {
-  padding: 10px;
-  margin-bottom: 10px;
-  background: rgba(255,255,255,0.15);
-  border-radius: 10px;
-  color: #fff;
-}
-.transactions li span {
-  display: block;
-  margin-bottom: 5px;
-}
+.balance-box { text-align:center; }
+.balance-box .amount { font-size:24px; font-weight:bold; margin:10px 0;}
+.transactions ul { list-style:none; padding:0; }
+.transactions li { padding:5px 0; border-bottom:1px solid rgba(255,255,255,0.2); }
 
 /* الجوال */
 @media (max-width:768px){
