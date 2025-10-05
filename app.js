@@ -1,8 +1,21 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-analytics.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
-import { getFirestore, doc, setDoc, getDoc, updateDoc, arrayUnion } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut
+} from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+import {
+  getFirestore,
+  doc,
+  setDoc,
+  getDoc,
+  updateDoc,
+  arrayUnion
+} from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
 
+// إعدادات Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyC1ShbTDoztdOWWEnFbTPAgW4mhKpdLIK4",
   authDomain: "mussa2030-35f77.firebaseapp.com",
@@ -13,12 +26,13 @@ const firebaseConfig = {
   measurementId: "G-8ZR4Y9GN6G"
 };
 
+// تهيئة Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const auth = getAuth();
 const db = getFirestore(app);
 
-/* ======= Register ======= */
+/* ========== التسجيل ========== */
 const registerForm = document.getElementById('registerForm');
 if (registerForm) {
   registerForm.addEventListener('submit', async (e) => {
@@ -32,6 +46,7 @@ if (registerForm) {
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
+
       await setDoc(doc(db, "users", user.uid), {
         fullName,
         idNumber,
@@ -40,6 +55,7 @@ if (registerForm) {
         balance: 0,
         transactions: []
       });
+
       alert("تم التسجيل بنجاح!");
       window.location.href = "login.html";
     } catch (error) {
@@ -48,13 +64,14 @@ if (registerForm) {
   });
 }
 
-/* ======= Login ======= */
+/* ========== تسجيل الدخول ========== */
 const loginForm = document.getElementById('loginForm');
 if (loginForm) {
   loginForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     const email = document.getElementById('loginEmail').value;
     const password = document.getElementById('loginPassword').value;
+
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
@@ -65,7 +82,7 @@ if (loginForm) {
   });
 }
 
-/* ======= Dashboard ======= */
+/* ========== صفحة لوحة التحكم ========== */
 const urlParams = new URLSearchParams(window.location.search);
 const uid = urlParams.get('uid');
 
@@ -83,86 +100,99 @@ if (logoutBtn) {
 
 const userInfoDiv = document.getElementById('userInfo');
 const balanceDiv = document.getElementById('balance');
-const withdrawBtn = document.getElementById('withdrawBtn');
-const withdrawForm = document.getElementById('withdrawForm');
-const confirmWithdraw = document.getElementById('confirmWithdraw');
 const transactionsList = document.getElementById('transactionsList');
 
 async function loadDashboard() {
   if (!uid) return;
-  const userDoc = await getDoc(doc(db, "users", uid));
-  if (userDoc.exists()) {
-    const data = userDoc.data();
 
-    if (userInfoDiv) {
-      userInfoDiv.innerHTML = `
-        <div class="user-data-item glass"><strong>الاسم الكامل:</strong> ${data.fullName}</div>
-        <div class="user-data-item glass"><strong>رقم الهوية / الإقامة:</strong> ${data.idNumber}</div>
-        <div class="user-data-item glass"><strong>البريد الإلكتروني:</strong> ${data.email}</div>
-        <div class="user-data-item glass"><strong>رقم الهاتف:</strong> ${data.phone}</div>
-      `;
-    }
+  try {
+    const userDoc = await getDoc(doc(db, "users", uid));
 
-    if (balanceDiv) {
-      balanceDiv.innerHTML = `<span style="color:green; font-weight:bold;">${data.balance} ريال سعودي</span>`;
-    }
+    if (userDoc.exists()) {
+      const data = userDoc.data();
 
-    if (transactionsList) {
-      transactionsList.innerHTML = '';
-      if (data.transactions.length > 0) {
-        data.transactions.forEach(tx => {
-          const li = document.createElement('li');
-          li.textContent = `تم السحب: ${tx.amount} ريال سعودي - البنك: ${tx.bankName} - الآيبان: ${tx.iban} - التاريخ: ${tx.date}`;
-          transactionsList.appendChild(li);
-        });
-      } else {
-        transactionsList.innerHTML = '<li>لا توجد عمليات بعد</li>';
+      if (userInfoDiv) {
+        document.getElementById('userName').innerHTML = `الاسم: <span>${data.fullName}</span>`;
+        document.getElementById('userEmail').innerHTML = `الإيميل: <span>${data.email}</span>`;
+        document.getElementById('userPhone').innerHTML = `رقم الهاتف: <span>${data.phone}</span>`;
+      }
+
+      if (balanceDiv) {
+        balanceDiv.innerText = `${data.balance} ريال سعودي`;
+      }
+
+      if (transactionsList) {
+        transactionsList.innerHTML = '';
+        if (data.transactions.length > 0) {
+          data.transactions.reverse().forEach(tx => {
+            const li = document.createElement('li');
+            li.textContent = `تم السحب: ${tx.amount} ريال سعودي - البنك: ${tx.bankName} - الحساب: ${tx.iban} - التاريخ: ${tx.date}`;
+            transactionsList.appendChild(li);
+          });
+        } else {
+          transactionsList.innerHTML = '<li>لا توجد عمليات بعد</li>';
+        }
       }
     }
+  } catch (error) {
+    console.error("فشل تحميل البيانات:", error);
   }
 }
 
-if (withdrawBtn) {
-  withdrawBtn.addEventListener('click', () => {
-    withdrawForm.style.display = withdrawForm.style.display === 'none' ? 'block' : 'none';
-  });
-}
+// تحميل البيانات عند فتح الصفحة
+loadDashboard();
 
+/* ========== عملية السحب ========== */
+const confirmWithdraw = document.getElementById('confirmWithdraw');
 if (confirmWithdraw) {
   confirmWithdraw.addEventListener('click', async () => {
-    const bankName = document.getElementById('bankName').value;
-    const amount = parseFloat(document.getElementById('amount').value);
-    const iban = document.getElementById('iban').value;
+    const bankName = document.getElementById('bankName').value.trim();
+    const amount = parseFloat(document.getElementById('amount').value.trim());
+    const iban = document.getElementById('accountNumber').value.trim(); // ✅ تطابق مع HTML
 
-    if (!amount || !bankName || !iban)
-      return alert("يرجى تعبئة جميع الحقول المطلوبة");
+    if (!bankName || !amount || !iban || amount <= 0) {
+      alert("يرجى تعبئة جميع الحقول بشكل صحيح.");
+      return;
+    }
 
-    const userRef = doc(db, "users", uid);
-    const userDoc = await getDoc(userRef);
-    const userData = userDoc.data();
+    try {
+      const userRef = doc(db, "users", uid);
+      const userDoc = await getDoc(userRef);
+      const userData = userDoc.data();
 
-    if (amount > userData.balance)
-      return alert("الرصيد غير كافٍ للسحب");
+      if (amount > userData.balance) {
+        alert("الرصيد غير كافٍ للسحب");
+        return;
+      }
 
-    const newBalance = userData.balance - amount;
+      const newBalance = userData.balance - amount;
 
-    await updateDoc(userRef, {
-      balance: newBalance,
-      transactions: arrayUnion({
-        bankName,
-        amount,
-        iban,
-        date: new Date().toLocaleString()
-      })
-    });
+      await updateDoc(userRef, {
+        balance: newBalance,
+        transactions: arrayUnion({
+          bankName,
+          amount,
+          iban,
+          date: new Date().toLocaleString()
+        })
+      });
 
-    alert("تم تنفيذ طلب السحب بنجاح ✅");
-    loadDashboard();
-    withdrawForm.style.display = 'none';
-    document.getElementById('bankName').value = '';
-    document.getElementById('amount').value = '';
-    document.getElementById('iban').value = '';
+      alert("تم تنفيذ طلب السحب بنجاح ✅");
+
+      // تحديث الرصيد وسجل العمليات مباشرة
+      loadDashboard();
+
+      // إخفاء النافذة
+      document.getElementById('popupOverlay').style.display = 'none';
+
+      // تفريغ الحقول
+      document.getElementById('bankName').value = '';
+      document.getElementById('amount').value = '';
+      document.getElementById('accountNumber').value = '';
+
+    } catch (error) {
+      console.error("خطأ أثناء السحب:", error);
+      alert("حدث خطأ أثناء عملية السحب.");
+    }
   });
 }
-
-loadDashboard();
