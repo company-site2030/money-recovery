@@ -155,10 +155,13 @@
     </div>
   </div>
 
-  <script>
+  <script type="module">
+    import { db } from './firebase-config.js'; // تأكد من مسار ملف Firebase
+
     const withdrawBtn = document.getElementById('withdrawBtn');
     const popupOverlay = document.getElementById('popupOverlay');
     const closePopup = document.getElementById('closePopup');
+    const confirmWithdraw = document.getElementById('confirmWithdraw');
 
     withdrawBtn.addEventListener('click', () => {
       popupOverlay.style.display = 'flex';
@@ -168,20 +171,103 @@
       popupOverlay.style.display = 'none';
     });
 
-    // مثال بسيط للتأكيد
-    document.getElementById('confirmWithdraw').addEventListener('click', () => {
+    // دالة تحميل سجل العمليات عند فتح الداشبورد
+    async function loadTransactions() {
+      const userId = localStorage.getItem('userId'); // تحديد المستخدم الحالي
+      const transactionsList = document.getElementById('transactionsList');
+      transactionsList.innerHTML = ''; // مسح أي عناصر قديمة
+
+      try {
+        const snapshot = await db.collection('transactions')
+                                 .where('userId', '==', userId)
+                                 .orderBy('timestamp', 'desc')
+                                 .get();
+
+        if (snapshot.empty) {
+          transactionsList.innerHTML = '<li>لا توجد عمليات بعد</li>';
+          return;
+        }
+
+        snapshot.forEach(doc => {
+          const data = doc.data();
+          const li = document.createElement('li');
+          li.textContent = `تم ${data.type} ${data.amount} ريال - البنك: ${data.bank} (${data.account})`;
+          transactionsList.appendChild(li);
+        });
+
+      } catch (error) {
+        console.error(error);
+        transactionsList.innerHTML = '<li>حدث خطأ في تحميل العمليات</li>';
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', loadTransactions);
+
+    // دالة السحب وتسجيل العملية
+    async function handleWithdraw() {
       const bank = document.getElementById('bankName').value.trim();
       const account = document.getElementById('accountNumber').value.trim();
-      const amount = document.getElementById('amount').value.trim();
+      const amount = parseFloat(document.getElementById('amount').value.trim());
 
-      if (!bank || !account || !amount) {
-        alert('يرجى تعبئة جميع الحقول المطلوبة.');
+      if (!bank || !account || !amount || amount <= 0) {
+        alert('يرجى تعبئة جميع الحقول بشكل صحيح.');
         return;
       }
 
-      alert('تم إرسال طلب السحب بنجاح ✅');
-      popupOverlay.style.display = 'none';
-    });
+      try {
+        const userId = localStorage.getItem('userId'); // أو أي طريقة لتحديد المستخدم الحالي
+        const userRef = db.collection('users').doc(userId);
+        const userDoc = await userRef.get();
+
+        if (!userDoc.exists) {
+          alert('حدث خطأ: المستخدم غير موجود.');
+          return;
+        }
+
+        const currentBalance = userDoc.data().balance || 0;
+
+        if (currentBalance < amount) {
+          alert('الرصيد غير كافي.');
+          return;
+        }
+
+        // تحديث الرصيد
+        await userRef.update({ balance: currentBalance - amount });
+
+        // تسجيل العملية
+        await db.collection('transactions').add({
+          userId: userId,
+          type: 'سحب',
+          amount: amount,
+          bank: bank,
+          account: account,
+          timestamp: new Date()
+        });
+
+        // تحديث الرصيد في الصفحة مباشرة
+        document.getElementById('balance').innerText = `${currentBalance - amount} ريال سعودي`;
+
+        // إضافة العملية الجديدة إلى قائمة العمليات في الصفحة
+        const transactionsList = document.getElementById('transactionsList');
+        const li = document.createElement('li');
+        li.textContent = `تم سحب ${amount} ريال - البنك: ${bank} (${account})`;
+        transactionsList.prepend(li);
+
+        alert('تم سحب المبلغ بنجاح ✅');
+        popupOverlay.style.display = 'none';
+
+        // مسح الحقول
+        document.getElementById('bankName').value = '';
+        document.getElementById('accountNumber').value = '';
+        document.getElementById('amount').value = '';
+
+      } catch (error) {
+        console.error(error);
+        alert('حدث خطأ أثناء عملية السحب.');
+      }
+    }
+
+    confirmWithdraw.addEventListener('click', handleWithdraw);
   </script>
 </body>
 </html>
