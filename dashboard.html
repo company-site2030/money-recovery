@@ -107,6 +107,27 @@
       display: flex;
       justify-content: space-between;
     }
+
+    /* ✅ تنسيق مربعات البيانات والرصيد للجوال */
+    @media (max-width: 768px) {
+      .dashboard-header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .smaller-box {
+        width: 100%;
+        max-width: 350px;
+        align-items: center;
+        text-align: center;
+      }
+
+      .user-data-item {
+        width: 100%;
+      }
+    }
   </style>
 </head>
 <body>
@@ -215,7 +236,7 @@
       }
 
       try {
-        const userId = localStorage.getItem('userId'); // أو أي طريقة لتحديد المستخدم الحالي
+        const userId = localStorage.getItem('userId');
         const userRef = db.collection('users').doc(userId);
         const userDoc = await userRef.get();
 
@@ -231,10 +252,8 @@
           return;
         }
 
-        // تحديث الرصيد
         await userRef.update({ balance: currentBalance - amount });
 
-        // تسجيل العملية
         await db.collection('transactions').add({
           userId: userId,
           type: 'سحب',
@@ -244,10 +263,8 @@
           timestamp: new Date()
         });
 
-        // تحديث الرصيد في الصفحة مباشرة
         document.getElementById('balance').innerText = `${currentBalance - amount} ريال سعودي`;
 
-        // إضافة العملية الجديدة إلى قائمة العمليات في الصفحة
         const transactionsList = document.getElementById('transactionsList');
         const li = document.createElement('li');
         li.textContent = `تم سحب ${amount} ريال - البنك: ${bank} (${account})`;
@@ -256,7 +273,6 @@
         alert('تم سحب المبلغ بنجاح ✅');
         popupOverlay.style.display = 'none';
 
-        // مسح الحقول
         document.getElementById('bankName').value = '';
         document.getElementById('accountNumber').value = '';
         document.getElementById('amount').value = '';
