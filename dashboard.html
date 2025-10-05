@@ -1,1 +1,187 @@
-<!DOCTYPE html> <html lang="ar"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>لوحة التحكم</title> <link rel="stylesheet" href="style.css"> <script type="module" src="app.js" defer></script> </head> <body> <div class="dashboard glass"> <div class="dashboard-header"> <div class="user-info smaller-box glass" id="userInfo"> <h3>بيانات العميل</h3> </div> <div class="balance-box smaller-box glass"> <h3>الرصيد المتاح</h3> <p class="amount" id="balance">0 $ </p> <button id="withdrawBtn" class="glass-btn green-btn">سحب</button> <button id="logout" class="glass-btn red-btn">تسجيل خروج</button> </div> </div> <div id="withdrawForm" class="withdraw-form glass" style="display:none;"> <h3>طلب سحب</h3> <input type="text" id="bankName" placeholder="اسم البنك" required> <input type="text" id="country" placeholder="الدولة" required> <input type="text" id="iban" placeholder="رقم الآيبان" required> <input type="number" id="amount" placeholder="المبلغ المطلوب" required> <button id="confirmWithdraw" class="glass-btn green-btn">تأكيد السحب</button> </div> <div class="transactions glass"> <h3>سجل العمليات</h3> <ul id="transactionsList"> <li>لا توجد عمليات بعد</li> </ul> </div> </div> </body> </html>
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>لوحة التحكم</title>
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="app.js" defer></script>
+  <style>
+    /* التأثير الزجاجي العام */
+    .glass {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      border-radius: 15px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      padding: 15px;
+      color: #fff;
+    }
+
+    .smaller-box {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: fit-content;
+      min-width: 200px;
+    }
+
+    .user-data-item {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 8px 12px;
+      border-radius: 12px;
+      width: fit-content;
+      font-size: 15px;
+    }
+
+    .amount {
+      color: #00c853; /* اللون الأخضر للرّصيد */
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .glass-btn {
+      padding: 8px 15px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .green-btn {
+      background: #00c853;
+      color: white;
+    }
+
+    .red-btn {
+      background: #e53935;
+      color: white;
+    }
+
+    /* نافذة السحب المنبثقة */
+    .popup-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(4px);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .popup {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 25px;
+      width: 320px;
+      color: #fff;
+      text-align: center;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    .popup input {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.2);
+      color: #fff;
+      text-align: right;
+    }
+
+    .popup input::placeholder {
+      color: #ddd;
+    }
+
+    .popup button {
+      margin-top: 10px;
+      width: 48%;
+    }
+
+    .popup-buttons {
+      display: flex;
+      justify-content: space-between;
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard glass">
+    <div class="dashboard-header">
+
+      <!-- بيانات العميل -->
+      <div class="user-info smaller-box glass" id="userInfo">
+        <h3>بيانات العميل</h3>
+        <div class="user-data-item" id="userName">الاسم: <span>--</span></div>
+        <div class="user-data-item" id="userEmail">الإيميل: <span>--</span></div>
+        <div class="user-data-item" id="userPhone">رقم الهاتف: <span>--</span></div>
+      </div>
+
+      <!-- الرصيد -->
+      <div class="balance-box smaller-box glass">
+        <h3>الرصيد المتاح</h3>
+        <p class="amount" id="balance">0 ريال سعودي</p>
+        <button id="withdrawBtn" class="glass-btn green-btn">سحب</button>
+        <button id="logout" class="glass-btn red-btn">تسجيل خروج</button>
+      </div>
+
+    </div>
+
+    <!-- سجل العمليات -->
+    <div class="transactions glass">
+      <h3>سجل العمليات</h3>
+      <ul id="transactionsList">
+        <li>لا توجد عمليات بعد</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- نافذة السحب المنبثقة -->
+  <div class="popup-overlay" id="popupOverlay">
+    <div class="popup glass">
+      <h3>طلب سحب</h3>
+      <input type="text" id="bankName" placeholder="اسم البنك" required>
+      <input type="text" id="accountNumber" placeholder="رقم الحساب" required>
+      <input type="number" id="amount" placeholder="المبلغ المطلوب" required>
+
+      <div class="popup-buttons">
+        <button id="confirmWithdraw" class="glass-btn green-btn">تأكيد</button>
+        <button id="closePopup" class="glass-btn red-btn">إغلاق</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const withdrawBtn = document.getElementById('withdrawBtn');
+    const popupOverlay = document.getElementById('popupOverlay');
+    const closePopup = document.getElementById('closePopup');
+
+    withdrawBtn.addEventListener('click', () => {
+      popupOverlay.style.display = 'flex';
+    });
+
+    closePopup.addEventListener('click', () => {
+      popupOverlay.style.display = 'none';
+    });
+
+    // مثال بسيط للتأكيد
+    document.getElementById('confirmWithdraw').addEventListener('click', () => {
+      const bank = document.getElementById('bankName').value.trim();
+      const account = document.getElementById('accountNumber').value.trim();
+      const amount = document.getElementById('amount').value.trim();
+
+      if (!bank || !account || !amount) {
+        alert('يرجى تعبئة جميع الحقول المطلوبة.');
+        return;
+      }
+
+      alert('تم إرسال طلب السحب بنجاح ✅');
+      popupOverlay.style.display = 'none';
+    });
+  </script>
+</body>
+</html>
