@@ -8,10 +8,11 @@ body {
 
 /* خلفية زجاجية عامة */
 .glass {
-  background: rgba(255,255,255,0.1);
-  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(14px);
   border-radius: 20px;
   padding: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
 }
 
 /* الهيدر */
@@ -23,9 +24,15 @@ body {
   margin: 0 auto;
   padding: 15px 20px;
   border-radius: 0 0 20px 20px;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(10px);
 }
 
-.header-logo { font-size: 20px; font-weight: bold; }
+.header-logo { 
+  font-size: 18px; 
+  font-weight: bold; 
+  color: #fff;
+}
 .header-nav { display: flex; gap: 15px; }
 
 .glass-btn {
@@ -45,8 +52,15 @@ body {
 .red-btn:hover { background: #c82333; }
 
 /* الصفحة الرئيسية */
-.landing-section { display: flex; justify-content: center; align-items: center; min-height: 90vh; text-align:center; padding:20px;}
-.landing-content h1 { font-size:28px; margin-bottom:15px; }
+.landing-section { 
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  min-height: 90vh; 
+  text-align:center; 
+  padding:20px;
+}
+.landing-content h1 { font-size:26px; margin-bottom:15px; }
 .landing-content p { font-size:18px; line-height:1.6; }
 .banks-logos { display:flex; justify-content:center; gap:25px; flex-wrap:wrap; margin:25px 0;}
 .bank img { width:100px; height:auto; border-radius:12px; padding:6px;}
@@ -57,28 +71,80 @@ body {
   margin: 80px auto;
   padding: 25px;
 }
-.form-container input, .form-container button { width: 100%; padding: 10px; margin: 8px 0; border:none; border-radius:10px; font-size:16px;}
-.form-container input { background: rgba(255,255,255,0.9); color:#000;}
-.form-container button { font-weight:bold;}
+.form-container input, .form-container button { 
+  width: 100%; 
+  padding: 10px; 
+  margin: 8px 0; 
+  border:none; 
+  border-radius:10px; 
+  font-size:16px;
+}
+.form-container input { background: rgba(255,255,255,0.9); color:#000; }
+.form-container button { font-weight:bold; }
 .center-text { text-align:center; }
 
 /* داشبورد */
-.dashboard { max-width:1000px; margin:30px auto; padding:20px; }
-.dashboard-header { display:flex; gap:20px; flex-wrap:wrap; }
-.user-info, .balance-box { flex:1; min-width:200px; }
-.smaller-box { padding:15px; border-radius:15px; }
-.balance-box { text-align:center; }
-.balance-box .amount { font-size:24px; font-weight:bold; margin:10px 0;}
-.transactions ul { list-style:none; padding:0; }
-.transactions li { padding:5px 0; border-bottom:1px solid rgba(255,255,255,0.2); }
+.dashboard { 
+  max-width: 1000px; 
+  margin: 30px auto; 
+  padding: 20px; 
+}
+
+.dashboard-header { 
+  display: flex; 
+  gap: 20px; 
+  flex-wrap: wrap; 
+}
+
+.user-info, .balance-box { 
+  flex: 1; 
+  min-width: 200px; 
+}
+
+.smaller-box { 
+  padding: 15px; 
+  border-radius: 15px; 
+}
+
+.balance-box { 
+  text-align: center; 
+}
+
+.balance-box .amount {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 10px 0;
+  color: #00ff83; /* اللون الأخضر للرصيد */
+}
+
+/* مربعات بيانات العميل */
+.user-data-item {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 10px 15px;
+  margin: 8px 0;
+  font-size: 15px;
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+/* سجل العمليات */
+.transactions ul { list-style: none; padding: 0; margin: 0; }
+.transactions li { 
+  padding: 8px 0; 
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  font-size: 14px;
+}
+.transactions li:last-child { border-bottom: none; }
 
 /* الجوال */
 @media (max-width:768px){
-  .glass-header{ flex-direction:column; gap:10px; }
-  .header-logo{ font-size:16px; }
-  .landing-content h1{ font-size:22px; }
-  .landing-content p{ font-size:15px; }
-  .bank img{ width:80px; }
-  .form-container{ max-width:250px; margin:50px auto; }
-  .dashboard-header{ flex-direction:column; }
+  .glass-header { flex-direction: column; gap: 10px; }
+  .header-logo { font-size: 15px; }
+  .landing-content h1 { font-size: 22px; }
+  .landing-content p { font-size: 15px; }
+  .bank img { width: 80px; }
+  .form-container { max-width: 250px; margin: 50px auto; }
+  .dashboard-header { flex-direction: column; }
 }
