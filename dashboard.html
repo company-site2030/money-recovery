@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>لوحة التحكم</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
   <script type="module" src="app.js" defer></script>
   <style>
     /* التأثير الزجاجي العام */
@@ -137,10 +137,10 @@
       <!-- بيانات العميل -->
       <div class="user-info smaller-box glass" id="userInfo">
         <h3>بيانات العميل</h3>
-        <div class="user-data-item" id="userName">الاسم: <span>--</span></div>
-        <div class="user-data-item" id="userId">رقم الهوية: <span>--</span></div>
-        <div class="user-data-item" id="userEmail">الإيميل: <span>--</span></div>
-        <div class="user-data-item" id="userPhone">رقم الهاتف: <span>--</span></div>
+        <div class="user-data-item" id="userName">الاسم / <span>--</span></div>
+        <div class="user-data-item" id="userId">رقم الهوية / <span>--</span></div>
+        <div class="user-data-item" id="userEmail">الإيميل / <span>--</span></div>
+        <div class="user-data-item" id="userPhone">رقم الهاتف / <span>--</span></div>
       </div>
       <!-- الرصيد -->
       <div class="balance-box smaller-box glass">
@@ -165,9 +165,9 @@
   <div class="popup-overlay" id="popupOverlay">
     <div class="popup glass">
       <h3>طلب سحب</h3>
-      <input type="text" id="bankName" placeholder="اسم البنك" required>
-      <input type="text" id="accountNumber" placeholder="رقم الحساب" required>
-      <input type="number" id="amount" placeholder="المبلغ المطلوب" required>
+      <input type="text" id="bankName" placeholder="اسم البنك" required />
+      <input type="text" id="accountNumber" placeholder="رقم الحساب" required />
+      <input type="number" id="amount" placeholder="المبلغ المطلوب" required />
 
       <div class="popup-buttons">
         <button id="confirmWithdraw" class="glass-btn green-btn">تأكيد</button>
@@ -177,113 +177,133 @@
   </div>
 
   <script type="module">
-    import { db } from './firebase-config.js'; // تأكد من مسار ملف Firebase
+    import {
+      getDoc,
+      doc,
+      updateDoc,
+      arrayUnion
+    } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+    import { auth, db } from "./firebase-config.js";
+    import {
+      signOut
+    } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
 
-    const withdrawBtn = document.getElementById('withdrawBtn');
-    const popupOverlay = document.getElementById('popupOverlay');
-    const closePopup = document.getElementById('closePopup');
-    const confirmWithdraw = document.getElementById('confirmWithdraw');
+    // الحصول على uid من الرابط
+    const urlParams = new URLSearchParams(window.location.search);
+    const uid = urlParams.get("uid");
 
-    withdrawBtn.addEventListener('click', () => {
-      popupOverlay.style.display = 'flex';
-    });
-
-    closePopup.addEventListener('click', () => {
-      popupOverlay.style.display = 'none';
-    });
-
-    // دالة تحميل سجل العمليات عند فتح الداشبورد
-    async function loadTransactions() {
-      const userId = localStorage.getItem('userId'); // تحديد المستخدم الحالي
-      const transactionsList = document.getElementById('transactionsList');
-      transactionsList.innerHTML = ''; // مسح أي عناصر قديمة
-
+    // عرض بيانات المستخدم
+    async function loadDashboard() {
+      if (!uid) return;
       try {
-        const snapshot = await db.collection('transactions')
-                                 .where('userId', '==', userId)
-                                 .orderBy('timestamp', 'desc')
-                                 .get();
+        const userDoc = await getDoc(doc(db, "users", uid));
+        if (userDoc.exists()) {
+          const data = userDoc.data();
 
-        if (snapshot.empty) {
-          transactionsList.innerHTML = '<li>لا توجد عمليات بعد</li>';
-          return;
+          document.getElementById("userName").querySelector("span").textContent = data.fullName.replace(/:/g, "/");
+          document.getElementById("userId").querySelector("span").textContent = data.idNumber.replace(/:/g, "/");
+          document.getElementById("userEmail").querySelector("span").textContent = data.email.replace(/:/g, "/");
+          document.getElementById("userPhone").querySelector("span").textContent = data.phone.replace(/:/g, "/");
+
+          document.getElementById("balance").textContent = `${data.balance} ريال سعودي`;
+
+          const transactionsList = document.getElementById("transactionsList");
+          transactionsList.innerHTML = "";
+
+          if (data.transactions.length > 0) {
+            // عرض العمليات مع عكس الترتيب
+            data.transactions.slice().reverse().forEach((tx) => {
+              const li = document.createElement("li");
+              li.textContent = `تم السحب / ${tx.amount} ريال سعودي / البنك / ${tx.bankName} / الحساب / ${tx.iban} / التاريخ / ${tx.date}`;
+              transactionsList.appendChild(li);
+            });
+          } else {
+            transactionsList.innerHTML = "<li>لا توجد عمليات بعد</li>";
+          }
         }
-
-        snapshot.forEach(doc => {
-          const data = doc.data();
-          const li = document.createElement('li');
-          li.textContent = `تم ${data.type} ${data.amount} ريال - البنك: ${data.bank} (${data.account})`;
-          transactionsList.appendChild(li);
-        });
-
       } catch (error) {
-        console.error(error);
-        transactionsList.innerHTML = '<li>حدث خطأ في تحميل العمليات</li>';
+        console.error("فشل تحميل البيانات:", error);
       }
     }
 
-    window.addEventListener('DOMContentLoaded', loadTransactions);
+    // تحميل البيانات عند فتح الصفحة
+    loadDashboard();
 
-    // دالة السحب وتسجيل العملية
-    async function handleWithdraw() {
-      const bank = document.getElementById('bankName').value.trim();
-      const account = document.getElementById('accountNumber').value.trim();
-      const amount = parseFloat(document.getElementById('amount').value.trim());
+    // زر تسجيل الخروج
+    const logoutBtn = document.getElementById("logout");
+    logoutBtn.addEventListener("click", async () => {
+      try {
+        await signOut(auth);
+        window.location.href = "index.html";
+      } catch (error) {
+        alert("حدث خطأ أثناء تسجيل الخروج: " + error.message);
+      }
+    });
 
-      if (!bank || !account || !amount || amount <= 0) {
-        alert('يرجى تعبئة جميع الحقول بشكل صحيح.');
+    // نافذة السحب
+    const withdrawBtn = document.getElementById("withdrawBtn");
+    const popupOverlay = document.getElementById("popupOverlay");
+    const closePopup = document.getElementById("closePopup");
+    const confirmWithdraw = document.getElementById("confirmWithdraw");
+
+    withdrawBtn.addEventListener("click", () => {
+      popupOverlay.style.display = "flex";
+    });
+
+    closePopup.addEventListener("click", () => {
+      popupOverlay.style.display = "none";
+    });
+
+    // عملية السحب
+    confirmWithdraw.addEventListener("click", async () => {
+      const bankName = document.getElementById("bankName").value.trim();
+      const amount = parseFloat(document.getElementById("amount").value.trim());
+      const iban = document.getElementById("accountNumber").value.trim();
+
+      if (!bankName || !amount || !iban || amount <= 0) {
+        alert("يرجى تعبئة جميع الحقول بشكل صحيح.");
         return;
       }
 
       try {
-        const userId = localStorage.getItem('userId');
-        const userRef = db.collection('users').doc(userId);
-        const userDoc = await userRef.get();
+        const userRef = doc(db, "users", uid);
+        const userDoc = await getDoc(userRef);
+        const userData = userDoc.data();
 
-        if (!userDoc.exists) {
-          alert('حدث خطأ: المستخدم غير موجود.');
+        if (amount > userData.balance) {
+          alert("الرصيد غير كافٍ للسحب");
           return;
         }
 
-        const currentBalance = userDoc.data().balance || 0;
+        const newBalance = userData.balance - amount;
 
-        if (currentBalance < amount) {
-          alert('الرصيد غير كافي.');
-          return;
-        }
-
-        await userRef.update({ balance: currentBalance - amount });
-
-        await db.collection('transactions').add({
-          userId: userId,
-          type: 'سحب',
-          amount: amount,
-          bank: bank,
-          account: account,
-          timestamp: new Date()
+        await updateDoc(userRef, {
+          balance: newBalance,
+          transactions: arrayUnion({
+            bankName,
+            amount,
+            iban,
+            date: new Date().toLocaleString()
+          }),
         });
 
-        document.getElementById('balance').innerText = `${currentBalance - amount} ريال سعودي`;
+        alert("تم تنفيذ طلب السحب بنجاح ✅");
 
-        const transactionsList = document.getElementById('transactionsList');
-        const li = document.createElement('li');
-        li.textContent = `تم سحب ${amount} ريال - البنك: ${bank} (${account})`;
-        transactionsList.prepend(li);
+        // تحديث الرصيد وسجل العمليات مباشرة
+        loadDashboard();
 
-        alert('تم سحب المبلغ بنجاح ✅');
-        popupOverlay.style.display = 'none';
+        // إخفاء النافذة
+        popupOverlay.style.display = "none";
 
-        document.getElementById('bankName').value = '';
-        document.getElementById('accountNumber').value = '';
-        document.getElementById('amount').value = '';
-
+        // تفريغ الحقول
+        document.getElementById("bankName").value = "";
+        document.getElementById("amount").value = "";
+        document.getElementById("accountNumber").value = "";
       } catch (error) {
-        console.error(error);
-        alert('حدث خطأ أثناء عملية السحب.');
+        console.error("خطأ أثناء السحب:", error);
+        alert("حدث خطأ أثناء عملية السحب.");
       }
-    }
-
-    confirmWithdraw.addEventListener('click', handleWithdraw);
+    });
   </script>
 </body>
 </html>
