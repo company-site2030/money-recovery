@@ -22,6 +22,50 @@
       popupOverlay.style.display = 'none';
     });
 
+    // إضافة تحميل بيانات العميل كاملة (الاسم، رقم الهوية، الإيميل، الهاتف، الرصيد)
+    async function loadUserData() {
+      const userId = localStorage.getItem('userId');
+      if (!userId) {
+        alert('لم يتم تسجيل الدخول');
+        return;
+      }
+      try {
+        const userRef = doc(db, 'users', userId);
+        const userDoc = await getDoc(userRef);
+
+        if (!userDoc.exists()) {
+          alert('المستخدم غير موجود');
+          return;
+        }
+
+        const userData = userDoc.data();
+
+        // عرض البيانات
+        // الاسم باللون الأخضر مع خلفية زجاجية بيضاء شفافة (حسب CSS)
+        const userNameEl = document.getElementById('userName').querySelector('span');
+        userNameEl.textContent = userData.name || '--';
+
+        // رقم الهوية
+        const userIdEl = document.getElementById('userId').querySelector('span');
+        userIdEl.textContent = userData.nationalId || '--';
+
+        // الإيميل
+        const userEmailEl = document.getElementById('userEmail').querySelector('span');
+        userEmailEl.textContent = userData.email || '--';
+
+        // رقم الهاتف
+        const userPhoneEl = document.getElementById('userPhone').querySelector('span');
+        userPhoneEl.textContent = userData.phone || '--';
+
+        // الرصيد
+        const balanceEl = document.getElementById('balance');
+        balanceEl.textContent = `${userData.balance || 0} ريال سعودي`;
+
+      } catch (error) {
+        console.error('خطأ في تحميل بيانات المستخدم:', error);
+      }
+    }
+
     async function loadTransactions() {
       const userId = localStorage.getItem('userId');
       const transactionsList = document.getElementById('transactionsList');
@@ -52,7 +96,10 @@
       }
     }
 
-    window.addEventListener('DOMContentLoaded', loadTransactions);
+    window.addEventListener('DOMContentLoaded', () => {
+      loadUserData();
+      loadTransactions();
+    });
 
     async function handleWithdraw() {
       const bank = document.getElementById('bankName').value.trim();
@@ -112,6 +159,7 @@
     }
 
     confirmWithdraw.addEventListener('click', handleWithdraw);
+
   </script>
 
   <style>
@@ -139,6 +187,30 @@
       border-radius: 12px;
       width: fit-content;
       font-size: 15px;
+      /* ألوان وتنسيقات مخصصة */
+      color: rgba(255, 255, 255, 0.85);
+    }
+
+    /* اسم العميل باللون الأخضر مع خلفية شفافة زجاجية بيضاء */
+    #userName {
+      background: rgba(255, 255, 255, 0.2);
+      color: #00c853;
+      font-weight: bold;
+    }
+
+    #userName span {
+      color: rgba(255, 255, 255, 0.7);
+      font-weight: normal;
+    }
+
+    /* باقي الحقول بتدرج ألوان بيضاء شفافة */
+    #userEmail, #userPhone, #userId {
+      background: rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    #userEmail span, #userPhone span, #userId span {
+      color: rgba(255, 255, 255, 0.7);
     }
 
     .amount {
@@ -243,6 +315,7 @@
       <div class="user-info smaller-box glass" id="userInfo">
         <h3>بيانات العميل</h3>
         <div class="user-data-item" id="userName">الاسم: <span>--</span></div>
+        <div class="user-data-item" id="userId">رقم الهوية: <span>--</span></div>
         <div class="user-data-item" id="userEmail">الإيميل: <span>--</span></div>
         <div class="user-data-item" id="userPhone">رقم الهاتف: <span>--</span></div>
       </div>
