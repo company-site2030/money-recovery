@@ -138,6 +138,7 @@
       <div class="user-info smaller-box glass" id="userInfo">
         <h3>بيانات العميل</h3>
         <div class="user-data-item" id="userName">الاسم / <span>--</span></div>
+        <div class="user-data-item" id="userId">رقم الهوية / <span>--</span></div>
         <div class="user-data-item" id="userEmail">الإيميل / <span>--</span></div>
         <div class="user-data-item" id="userPhone">رقم الهاتف / <span>--</span></div>
       </div>
@@ -209,7 +210,7 @@
           const transactionsList = document.getElementById("transactionsList");
           transactionsList.innerHTML = "";
 
-          if (data.transactions.length > 0) {
+          if (data.transactions && data.transactions.length > 0) {
             // عرض العمليات مع عكس الترتيب
             data.transactions.slice().reverse().forEach((tx) => {
               const li = document.createElement("li");
