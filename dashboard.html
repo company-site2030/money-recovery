@@ -200,12 +200,13 @@
         if (userDoc.exists()) {
           const data = userDoc.data();
 
-          document.getElementById("userName").querySelector("span").textContent = data.fullName.replace(/:/g, "/");
-          document.getElementById("userId").querySelector("span").textContent = data.idNumber.replace(/:/g, "/");
-          document.getElementById("userEmail").querySelector("span").textContent = data.email.replace(/:/g, "/");
-          document.getElementById("userPhone").querySelector("span").textContent = data.phone.replace(/:/g, "/");
+          // تأكد من أن البيانات موجودة
+          document.getElementById("userName").querySelector("span").textContent = data.fullName ? data.fullName.replace(/:/g, "/") : "--";
+          document.getElementById("userId").querySelector("span").textContent = data.idNumber ? data.idNumber.replace(/:/g, "/") : "--";
+          document.getElementById("userEmail").querySelector("span").textContent = data.email ? data.email.replace(/:/g, "/") : "--";
+          document.getElementById("userPhone").querySelector("span").textContent = data.phone ? data.phone.replace(/:/g, "/") : "--";
 
-          document.getElementById("balance").textContent = `${data.balance} ريال سعودي`;
+          document.getElementById("balance").textContent = `${data.balance ?? 0} ريال سعودي`;
 
           const transactionsList = document.getElementById("transactionsList");
           transactionsList.innerHTML = "";
