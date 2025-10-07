@@ -4,93 +4,153 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>لوحة التحكم</title>
-  <link rel="stylesheet" href="style.css" />
-  <script type="module" src="app.js" defer></script>
   <style>
-    /* التأثير الزجاجي العام */
+    /* تصميم الزجاجي */
+    body {
+      background: linear-gradient(135deg, #4a90e2, #9013fe);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #fff;
+      margin: 0;
+      padding: 20px;
+      direction: rtl;
+    }
+
     .glass {
       background: rgba(255, 255, 255, 0.15);
       backdrop-filter: blur(10px);
       border-radius: 15px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-      padding: 15px;
-      color: #fff;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+      padding: 20px;
+      margin-bottom: 20px;
     }
 
-    .smaller-box {
+    h2, h3 {
+      margin-top: 0;
+      margin-bottom: 15px;
+    }
+
+    .dashboard-header {
       display: flex;
-      flex-direction: column;
-      gap: 10px;
-      width: fit-content;
-      min-width: 200px;
+      gap: 30px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .user-info, .balance-box {
+      flex: 1 1 300px;
+      min-width: 280px;
     }
 
     .user-data-item {
       background: rgba(255, 255, 255, 0.1);
-      padding: 8px 12px;
+      margin-bottom: 12px;
+      padding: 10px 15px;
+      border-radius: 10px;
+      font-size: 16px;
+    }
+
+    .user-data-item span {
+      font-weight: bold;
+      color: #fff;
+    }
+
+    .balance-box {
+      text-align: center;
+    }
+
+    .balance-box .amount {
+      font-size: 36px;
+      font-weight: 700;
+      color: #00e676;
+      margin: 15px 0;
+    }
+
+    button.glass-btn {
+      background: rgba(255, 255, 255, 0.2);
+      border: none;
+      padding: 12px 25px;
+      margin: 10px 8px 0 8px;
       border-radius: 12px;
-      width: fit-content;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+      color: white;
+    }
+
+    button.glass-btn:hover {
+      background: rgba(255, 255, 255, 0.35);
+    }
+
+    button.green-btn {
+      background: #00c853;
+      color: #fff;
+    }
+
+    button.red-btn {
+      background: #e53935;
+      color: #fff;
+    }
+
+    /* سجل العمليات */
+    .transactions {
+      max-width: 800px;
+      margin: 0 auto 40px;
+    }
+
+    .transactions ul {
+      list-style: none;
+      padding: 0;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+
+    .transactions li {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 10px 15px;
+      border-radius: 12px;
+      margin-bottom: 10px;
       font-size: 15px;
     }
 
-    .amount {
-      color: #00c853; /* اللون الأخضر للرّصيد */
-      font-size: 22px;
-      font-weight: bold;
-    }
-
-    .glass-btn {
-      padding: 8px 15px;
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    .green-btn {
-      background: #00c853;
-      color: white;
-    }
-
-    .red-btn {
-      background: #e53935;
-      color: white;
-    }
-
-    /* نافذة السحب المنبثقة */
+    /* نافذة السحب */
     .popup-overlay {
       position: fixed;
       top: 0;
       left: 0;
-      width: 100%;
-      height: 100%;
+      width: 100vw;
+      height: 100vh;
       background: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(4px);
+      backdrop-filter: blur(6px);
       display: none;
       justify-content: center;
       align-items: center;
-      z-index: 1000;
+      z-index: 9999;
     }
 
     .popup {
       background: rgba(255, 255, 255, 0.15);
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(15px);
       border-radius: 20px;
-      padding: 25px;
-      width: 320px;
-      color: #fff;
+      padding: 30px 25px;
+      width: 350px;
+      color: white;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
       text-align: center;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    .popup h3 {
+      margin-bottom: 20px;
     }
 
     .popup input {
       width: 100%;
-      padding: 10px;
-      margin: 8px 0;
+      padding: 12px 15px;
+      margin-bottom: 15px;
       border: none;
       border-radius: 12px;
       background: rgba(255, 255, 255, 0.2);
-      color: #fff;
+      color: white;
+      font-size: 16px;
       text-align: right;
     }
 
@@ -98,58 +158,73 @@
       color: #ddd;
     }
 
-    .popup button {
-      margin-top: 10px;
-      width: 48%;
-    }
-
     .popup-buttons {
       display: flex;
       justify-content: space-between;
+      gap: 10px;
     }
 
-    /* ✅ تنسيق مربعات البيانات والرصيد للجوال */
-    @media (max-width: 768px) {
+    .popup-buttons button {
+      flex: 1;
+      padding: 12px 0;
+      font-size: 16px;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .popup-buttons button.green-btn {
+      background-color: #00c853;
+      color: white;
+    }
+
+    .popup-buttons button.red-btn {
+      background-color: #e53935;
+      color: white;
+    }
+
+    .popup-buttons button:hover {
+      filter: brightness(1.1);
+    }
+
+    /* استجابة للجوال */
+    @media (max-width: 600px) {
       .dashboard-header {
-        display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 20px;
       }
 
-      .smaller-box {
-        width: 100%;
-        max-width: 350px;
-        align-items: center;
-        text-align: center;
+      .user-info, .balance-box {
+        width: 90%;
       }
 
-      .user-data-item {
-        width: 100%;
+      .popup {
+        width: 90%;
       }
     }
   </style>
 </head>
 <body>
-  <div class="dashboard glass">
-    <div class="dashboard-header">
+  <div class="dashboard">
 
+    <div class="dashboard-header">
       <!-- بيانات العميل -->
-      <div class="user-info smaller-box glass" id="userInfo">
+      <div class="user-info glass" id="userInfo">
         <h3>بيانات العميل</h3>
-        <div class="user-data-item" id="userName">الاسم / <span>--</span></div>
-        <div id="userId">رقم الهوية / الإقامة: <span>--</span></div>
-        <div class="user-data-item" id="userEmail">الإيميل / <span>--</span></div>
-        <div class="user-data-item" id="userPhone">رقم الهاتف / <span>--</span></div>
+        <div class="user-data-item" id="userName">الاسم: <span>--</span></div>
+        <div class="user-data-item" id="userId">رقم الهوية / الإقامة: <span>--</span></div>
+        <div class="user-data-item" id="userEmail">الإيميل: <span>--</span></div>
+        <div class="user-data-item" id="userPhone">رقم الهاتف: <span>--</span></div>
       </div>
+
       <!-- الرصيد -->
-      <div class="balance-box smaller-box glass">
+      <div class="balance-box glass">
         <h3>الرصيد المتاح</h3>
         <p class="amount" id="balance">0 ريال سعودي</p>
         <button id="withdrawBtn" class="glass-btn green-btn">سحب</button>
         <button id="logout" class="glass-btn red-btn">تسجيل خروج</button>
       </div>
-
     </div>
 
     <!-- سجل العمليات -->
@@ -159,81 +234,92 @@
         <li>لا توجد عمليات بعد</li>
       </ul>
     </div>
+
   </div>
 
-  <!-- نافذة السحب المنبثقة -->
+  <!-- نافذة السحب -->
   <div class="popup-overlay" id="popupOverlay">
-    <div class="popup glass">
+    <div class="popup">
       <h3>طلب سحب</h3>
       <input type="text" id="bankName" placeholder="اسم البنك" required />
       <input type="text" id="accountNumber" placeholder="رقم الحساب" required />
-      <input type="number" id="amount" placeholder="المبلغ المطلوب" required />
-
+      <input type="number" id="amount" placeholder="المبلغ المطلوب" required min="1" />
       <div class="popup-buttons">
-        <button id="confirmWithdraw" class="glass-btn green-btn">تأكيد</button>
-        <button id="closePopup" class="glass-btn red-btn">إغلاق</button>
+        <button id="confirmWithdraw" class="green-btn">تأكيد</button>
+        <button id="closePopup" class="red-btn">إغلاق</button>
       </div>
     </div>
   </div>
 
   <script type="module">
-    import {
-      getDoc,
-      doc,
-      updateDoc,
-      arrayUnion
-    } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
-    import { auth, db } from "./firebase-config.js";
-    import {
-      signOut
-    } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+    import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+    import { getFirestore, doc, getDoc, updateDoc, arrayUnion } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
 
-    // الحصول على uid من الرابط
+    // إعداد Firebase (ضع هنا إعدادات مشروعك)
+    const firebaseConfig = {
+      apiKey: "AIzaSyC1ShbTDoztdOWWEnFbTPAgW4mhKpdLIK4",
+      authDomain: "mussa2030-35f77.firebaseapp.com",
+      projectId: "mussa2030-35f77",
+      storageBucket: "mussa2030-35f77.appspot.com",
+      messagingSenderId: "267072856781",
+      appId: "1:267072856781:web:22d84c86fc9d7f83657f84",
+      measurementId: "G-8ZR4Y9GN6G"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    // قراءة uid من رابط الصفحة
     const urlParams = new URLSearchParams(window.location.search);
     const uid = urlParams.get("uid");
 
-    // عرض بيانات المستخدم
+    // تحميل بيانات المستخدم والرصيد والعمليات
     async function loadDashboard() {
       if (!uid) return;
+
       try {
         const userDoc = await getDoc(doc(db, "users", uid));
-        if (userDoc.exists()) {
-  const data = userDoc.data();
+        if (!userDoc.exists()) {
+          alert("المستخدم غير موجود!");
+          return;
+        }
+        const data = userDoc.data();
 
-  // عرض بيانات المستخدم مع استبدال ":" بـ "/"
-  document.getElementById("userName").querySelector("span").textContent = data.fullName ? data.fullName.replace(/:/g, "/") : "--";
-  document.getElementById("userId").querySelector("span").textContent = data.idNumber ? data.idNumber.replace(/:/g, "/") : "--";
-  document.getElementById("userEmail").querySelector("span").textContent = data.email ? data.email.replace(/:/g, "/") : "--";
-  document.getElementById("userPhone").querySelector("span").textContent = data.phone ? data.phone.replace(/:/g, "/") : "--";
-}
+        // عرض بيانات المستخدم
+        document.getElementById("userName").querySelector("span").textContent = data.fullName ?? "--";
+        document.getElementById("userId").querySelector("span").textContent = data.idNumber ?? "--";
+        document.getElementById("userEmail").querySelector("span").textContent = data.email ?? "--";
+        document.getElementById("userPhone").querySelector("span").textContent = data.phone ?? "--";
 
-          document.getElementById("balance").textContent = `${data.balance ?? 0} ريال سعودي`;
+        // عرض الرصيد
+        document.getElementById("balance").textContent = `${data.balance ?? 0} ريال سعودي`;
 
-          const transactionsList = document.getElementById("transactionsList");
-          transactionsList.innerHTML = "";
+        // عرض سجل العمليات
+        const transactionsList = document.getElementById("transactionsList");
+        transactionsList.innerHTML = "";
 
-          if (data.transactions && data.transactions.length > 0) {
-            // عرض العمليات مع عكس الترتيب
-            data.transactions.slice().reverse().forEach((tx) => {
-              const li = document.createElement("li");
-              li.textContent = `تم السحب / ${tx.amount} ريال سعودي / البنك / ${tx.bankName} / الحساب / ${tx.iban} / التاريخ / ${tx.date}`;
-              transactionsList.appendChild(li);
-            });
-          } else {
-            transactionsList.innerHTML = "<li>لا توجد عمليات بعد</li>";
-          }
+        if (data.transactions && data.transactions.length > 0) {
+          data.transactions.slice().reverse().forEach(tx => {
+            const li = document.createElement("li");
+            li.textContent = `تم السحب: ${tx.amount} ريال سعودي | البنك: ${tx.bankName} | الحساب: ${tx.iban || tx.accountNumber || "--"} | التاريخ: ${tx.date}`;
+            transactionsList.appendChild(li);
+          });
+        } else {
+          transactionsList.innerHTML = "<li>لا توجد عمليات بعد</li>";
         }
       } catch (error) {
-        console.error("فشل تحميل البيانات:", error);
+        console.error("خطأ في تحميل البيانات:", error);
+        alert("حدث خطأ أثناء تحميل البيانات.");
       }
     }
 
-    // تحميل البيانات عند فتح الصفحة
+    // تفعيل تحميل البيانات عند بدء الصفحة
     loadDashboard();
 
     // زر تسجيل الخروج
-    const logoutBtn = document.getElementById("logout");
-    logoutBtn.addEventListener("click", async () => {
+    document.getElementById("logout").addEventListener("click", async () => {
       try {
         await signOut(auth);
         window.location.href = "index.html";
@@ -242,27 +328,33 @@
       }
     });
 
-    // نافذة السحب
-    const withdrawBtn = document.getElementById("withdrawBtn");
+    // فتح نافذة السحب
     const popupOverlay = document.getElementById("popupOverlay");
-    const closePopup = document.getElementById("closePopup");
-    const confirmWithdraw = document.getElementById("confirmWithdraw");
-
-    withdrawBtn.addEventListener("click", () => {
+    document.getElementById("withdrawBtn").addEventListener("click", () => {
       popupOverlay.style.display = "flex";
     });
 
-    closePopup.addEventListener("click", () => {
+    // إغلاق نافذة السحب
+    document.getElementById("closePopup").addEventListener("click", () => {
       popupOverlay.style.display = "none";
+      clearWithdrawInputs();
     });
 
-    // عملية السحب
-    confirmWithdraw.addEventListener("click", async () => {
-      const bankName = document.getElementById("bankName").value.trim();
-      const amount = parseFloat(document.getElementById("amount").value.trim());
-      const iban = document.getElementById("accountNumber").value.trim();
+    // تفريغ حقول السحب
+    function clearWithdrawInputs() {
+      document.getElementById("bankName").value = "";
+      document.getElementById("accountNumber").value = "";
+      document.getElementById("amount").value = "";
+    }
 
-      if (!bankName || !amount || !iban || amount <= 0) {
+    // تأكيد طلب السحب
+    document.getElementById("confirmWithdraw").addEventListener("click", async () => {
+      const bankName = document.getElementById("bankName").value.trim();
+      const accountNumber = document.getElementById("accountNumber").value.trim();
+      const amountStr = document.getElementById("amount").value.trim();
+      const amount = parseFloat(amountStr);
+
+      if (!bankName || !accountNumber || !amountStr || isNaN(amount) || amount <= 0) {
         alert("يرجى تعبئة جميع الحقول بشكل صحيح.");
         return;
       }
@@ -270,37 +362,39 @@
       try {
         const userRef = doc(db, "users", uid);
         const userDoc = await getDoc(userRef);
-        const userData = userDoc.data();
-
-        if (amount > userData.balance) {
-          alert("الرصيد غير كافٍ للسحب");
+        if (!userDoc.exists()) {
+          alert("المستخدم غير موجود!");
           return;
         }
 
-        const newBalance = userData.balance - amount;
+        const userData = userDoc.data();
+
+        if (amount > (userData.balance ?? 0)) {
+          alert("الرصيد غير كافٍ للسحب.");
+          return;
+        }
+
+        const newBalance = (userData.balance ?? 0) - amount;
 
         await updateDoc(userRef, {
           balance: newBalance,
           transactions: arrayUnion({
             bankName,
             amount,
-            iban,
+            iban: accountNumber,
             date: new Date().toLocaleString()
           }),
         });
 
         alert("تم تنفيذ طلب السحب بنجاح ✅");
 
-        // تحديث الرصيد وسجل العمليات مباشرة
+        // تحديث البيانات بعد السحب
         loadDashboard();
 
-        // إخفاء النافذة
+        // إخفاء النافذة وتفريغ الحقول
         popupOverlay.style.display = "none";
+        clearWithdrawInputs();
 
-        // تفريغ الحقول
-        document.getElementById("bankName").value = "";
-        document.getElementById("amount").value = "";
-        document.getElementById("accountNumber").value = "";
       } catch (error) {
         console.error("خطأ أثناء السحب:", error);
         alert("حدث خطأ أثناء عملية السحب.");
