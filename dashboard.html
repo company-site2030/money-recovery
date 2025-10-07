@@ -198,13 +198,14 @@
       try {
         const userDoc = await getDoc(doc(db, "users", uid));
         if (userDoc.exists()) {
-          const data = userDoc.data();
+  const data = userDoc.data();
 
-          // تأكد من أن البيانات موجودة
-          document.getElementById("userName").querySelector("span").textContent = data.fullName ? data.fullName.replace(/:/g, "/") : "--";
-          document.getElementById("userId").querySelector("span").textContent = data.idNumber ? data.idNumber.replace(/:/g, "/") : "--";
-          document.getElementById("userEmail").querySelector("span").textContent = data.email ? data.email.replace(/:/g, "/") : "--";
-          document.getElementById("userPhone").querySelector("span").textContent = data.phone ? data.phone.replace(/:/g, "/") : "--";
+  // عرض بيانات المستخدم مع استبدال ":" بـ "/"
+  document.getElementById("userName").querySelector("span").textContent = data.fullName ? data.fullName.replace(/:/g, "/") : "--";
+  document.getElementById("userId").querySelector("span").textContent = data.idNumber ? data.idNumber.replace(/:/g, "/") : "--";
+  document.getElementById("userEmail").querySelector("span").textContent = data.email ? data.email.replace(/:/g, "/") : "--";
+  document.getElementById("userPhone").querySelector("span").textContent = data.phone ? data.phone.replace(/:/g, "/") : "--";
+}
 
           document.getElementById("balance").textContent = `${data.balance ?? 0} ريال سعودي`;
 
