@@ -1,172 +1,178 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>منصة الأفراد الخليجية</title>
-<link rel="stylesheet" href="style.css">
-<script type="module" src="app.js" defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>منصة الأفراد الخليجية</title>
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="app.js" defer></script>
 
-<!-- أيقونة المشاركة -->
-<meta property="og:title" content="منصة الأفراد الخليجية">
-<meta property="og:description" content="منصة متخصصة في استرجاع المبالغ المالية للأفراد والشركات في دول الخليج العربي من شركات الفوركس والاستثمار الخارجي.">
-<meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/6/65/Saudi_Central_Bank_logo.png">
-<meta property="og:url" content="https://yourwebsite.com">
-<meta name="twitter:card" content="summary_large_image">
+  <!-- أيقونة المشاركة -->
+  <meta property="og:title" content="منصة الأفراد الخليجية">
+  <meta property="og:description" content="منصة متخصصة في استرجاع المبالغ المالية للأفراد والشركات في دول الخليج العربي من شركات الفوركس والاستثمار الخارجي.">
+  <meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/6/65/Saudi_Central_Bank_logo.png">
+  <meta property="og:url" content="https://yourwebsite.com">
+  <meta name="twitter:card" content="summary_large_image">
 
-<style>
-/* الخط العام */
-body {
-  margin: 0;
-  font-family: "Tahoma", sans-serif;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(230, 240, 255, 0.3));
-  backdrop-filter: blur(10px);
-  color: #333;
-}
+  <style>
+    /* الخط العام والخلفية الزجاجية */
+    body {
+      margin: 0;
+      font-family: "Tahoma", sans-serif;
+      background: linear-gradient(135deg, #dbefff, #f1f5ff);
+      background-attachment: fixed;
+      color: #333;
+    }
 
-/* الهيدر الزجاجي */
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: rgba(255, 255, 255, 0.25);
-  backdrop-filter: blur(12px);
-  padding: 15px 40px;
-  border-radius: 0 0 15px 15px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-}
+    /* الهيدر الزجاجي */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(12px);
+      padding: 15px 40px;
+      border-radius: 0 0 15px 15px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
 
-/* تصغير الشعار */
-.header-logo {
-  font-size: 17px;
-  font-weight: bold;
-  color: #007b9c;
-  letter-spacing: 0.5px;
-}
+    .header-logo {
+      font-size: 18px;
+      font-weight: bold;
+      color: #007b9c;
+    }
 
-/* روابط الهيدر */
-.header-nav a {
-  margin-left: 15px;
-  text-decoration: none;
-  padding: 8px 16px;
-  border-radius: 8px;
-  background: rgba(0, 123, 156, 0.8);
-  backdrop-filter: blur(5px);
-  color: #fff;
-  font-size: 14px;
-  transition: 0.2s;
-}
-.header-nav a:hover {
-  background: rgba(0, 123, 156, 1);
-}
+    .header-nav {
+      margin-right: auto; /* يجعلها على اليسار */
+    }
 
-/* السكاشن */
-.section {
-  padding: 60px 20px;
-  text-align: center;
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(10px);
-  border-radius: 15px;
-  margin: 25px auto;
-  width: 90%;
-  max-width: 1100px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-}
+    .header-nav a {
+      margin-left: 15px;
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: 8px;
+      background: rgba(0, 123, 156, 0.6);
+      backdrop-filter: blur(6px);
+      color: #fff;
+      font-size: 14px;
+      transition: 0.3s;
+    }
 
-.section h1 {
-  font-size: 24px;
-  margin-bottom: 20px;
-  color: #007b9c;
-}
-.section h2 {
-  font-size: 21px;
-  margin-bottom: 15px;
-  color: #007b9c;
-}
-.section p {
-  max-width: 800px;
-  margin: 0 auto 20px;
-  line-height: 1.8;
-}
+    .header-nav a:hover {
+      background: rgba(0, 123, 156, 0.9);
+      transform: translateY(-2px);
+    }
 
-/* الخدمات */
-.services {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
-  margin-top: 30px;
-}
-.service {
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 12px;
-  padding: 25px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-  backdrop-filter: blur(10px);
-  transition: transform 0.2s;
-}
-.service:hover {
-  transform: translateY(-4px);
-}
-.service h3 {
-  color: #007b9c;
-  margin-bottom: 10px;
-}
+    .section {
+      padding: 60px 20px;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(14px);
+      border-radius: 20px;
+      margin: 30px auto;
+      width: 90%;
+      max-width: 1100px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    }
 
-/* البنوك */
-.banks {
-  max-width: 600px;
-  margin: 0 auto;
-  text-align: right;
-  background: rgba(255, 255, 255, 0.15);
-  padding: 25px;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-  backdrop-filter: blur(10px);
-}
-.banks ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-.banks li {
-  padding: 10px 0;
-  border-bottom: 1px solid rgba(255,255,255,0.2);
-  font-size: 15px;
-}
-.banks li:last-child {
-  border-bottom: none;
-}
+    .section h1, .section h2 {
+      color: #007b9c;
+      margin-bottom: 20px;
+    }
 
-/* الفوتر */
-footer {
-  text-align: center;
-  padding: 20px;
-  font-size: 13px;
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(10px);
-  box-shadow: 0 -2px 6px rgba(0,0,0,0.05);
-  margin-top: 40px;
-  border-radius: 15px 15px 0 0;
-}
+    .section p {
+      max-width: 800px;
+      margin: 0 auto 20px;
+      line-height: 1.9;
+      font-size: 15.5px;
+    }
 
-/* الموبايل */
-@media (max-width: 600px) {
-  header {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 15px 20px;
-  }
-  .header-nav {
-    margin-top: 10px;
-  }
-  .section {
-    padding: 40px 15px;
-  }
-  .section h1 { font-size: 20px; }
-  .section h2 { font-size: 18px; }
-  .section p { font-size: 14px; }
-}
-</style>
+    .services {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .service {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 16px;
+      padding: 25px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.05);
+      backdrop-filter: blur(10px);
+      transition: transform 0.2s ease;
+    }
+
+    .service:hover {
+      transform: translateY(-5px);
+    }
+
+    .service h3 {
+      color: #007b9c;
+      margin-bottom: 10px;
+    }
+
+    .banks {
+      max-width: 600px;
+      margin: 0 auto;
+      text-align: right;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      backdrop-filter: blur(10px);
+    }
+
+    .banks ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .banks li {
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+      font-size: 15px;
+    }
+
+    .banks li:last-child {
+      border-bottom: none;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 13px;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 -2px 8px rgba(0,0,0,0.05);
+      margin-top: 40px;
+      border-radius: 20px 20px 0 0;
+    }
+
+    @media (max-width: 600px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px 20px;
+      }
+
+      .header-nav {
+        margin: 10px 0 0;
+      }
+
+      .section {
+        padding: 40px 15px;
+      }
+
+      .section h1 { font-size: 20px; }
+      .section h2 { font-size: 18px; }
+      .section p { font-size: 14px; }
+    }
+  </style>
 </head>
 <body>
 
@@ -178,7 +184,6 @@ footer {
   </nav>
 </header>
 
-<!-- ترحيب -->
 <section class="section">
   <h1>مرحباً بكم في منصة الأفراد الخليجية</h1>
   <p>
@@ -187,7 +192,6 @@ footer {
   </p>
 </section>
 
-<!-- الخدمات -->
 <section class="section">
   <h2>خدماتنا</h2>
   <div class="services">
@@ -206,7 +210,6 @@ footer {
   </div>
 </section>
 
-<!-- التأسيس -->
 <section class="section">
   <h2>متى تأسست المنصة؟</h2>
   <p>
@@ -216,7 +219,6 @@ footer {
   </p>
 </section>
 
-<!-- الوظيفة -->
 <section class="section">
   <h2>وظيفة المنصة</h2>
   <p>
@@ -225,7 +227,6 @@ footer {
   </p>
 </section>
 
-<!-- البنوك -->
 <section class="section">
   <h2>شركاؤنا</h2>
   <div class="banks">
