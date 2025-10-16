@@ -3,100 +3,123 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>لوحة التحكم</title>
+  <title>لوحة التحكم - منصة الخليج</title>
   <style>
     body {
-      background: linear-gradient(135deg, #4a90e2, #9013fe);
+      background-color: #f5f6fa;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      color: #fff;
       margin: 0;
-      padding: 20px;
+      padding: 0;
       direction: rtl;
+      color: #333;
     }
 
-    .glass {
-      background: rgba(255, 255, 255, 0.15);
-      backdrop-filter: blur(10px);
-      border-radius: 15px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
+      background-color: #ffffff;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    header h1 {
+      font-size: 22px;
+      color: #2196f3;
+      margin: 0;
+    }
+
+    header button {
+      background-color: #e53935;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 15px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    header button:hover {
+      background-color: #d32f2f;
+    }
+
+    .dashboard {
       padding: 20px;
-      margin-bottom: 20px;
-    }
-
-    h2, h3 {
-      margin-top: 0;
-      margin-bottom: 15px;
+      max-width: 1200px;
+      margin: auto;
     }
 
     .dashboard-header {
       display: flex;
-      gap: 15px; /* تقليل المسافة بين المربعات */
+      gap: 20px;
       flex-wrap: wrap;
-      justify-content: center;
+      justify-content: space-between;
+      margin-bottom: 30px;
     }
 
-    .user-info, .balance-box {
+    .glass {
+      background-color: #ffffff;
+      border-radius: 15px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+      padding: 20px;
       flex: 1 1 300px;
       min-width: 280px;
     }
 
+    .glass h3 {
+      margin-top: 0;
+      margin-bottom: 15px;
+      color: #2196f3;
+    }
+
     .user-data-item {
-      background: rgba(255, 255, 255, 0.1);
-      margin-bottom: 6px; /* تقليل الفراغات */
-      padding: 10px 15px;
+      background-color: #f1f3f6;
+      margin-bottom: 10px;
+      padding: 12px 15px;
       border-radius: 10px;
       font-size: 15px;
-    }
-
-    .user-data-item span {
-      font-weight: bold;
-      color: #fff;
-    }
-
-    .balance-box {
-      text-align: center;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
     .balance-box .amount {
-      font-size: 28px; /* تصغير حجم النص */
+      font-size: 28px;
       font-weight: 700;
-      color: #00e676;
+      color: #00c853;
       margin: 15px 0;
+      text-align: center;
     }
 
     .balance-box button.glass-btn {
-      width: 140px; /* تصغير عرض الزر */
+      width: 140px;
       padding: 10px 0;
+      margin: 5px;
     }
 
     button.glass-btn {
-      background: rgba(255, 255, 255, 0.2);
+      background-color: #2196f3;
+      color: white;
       border: none;
-      margin: 10px 8px 0 8px;
       border-radius: 12px;
       cursor: pointer;
       font-size: 16px;
       transition: background-color 0.3s ease;
-      color: white;
     }
 
     button.glass-btn:hover {
-      background: rgba(255, 255, 255, 0.35);
-    }
-
-    button.green-btn {
-      background: #00c853;
-      color: #fff;
-    }
-
-    button.red-btn {
-      background: #e53935;
-      color: #fff;
+      background-color: #1976d2;
     }
 
     .transactions {
-      max-width: 800px;
-      margin: 0 auto 40px;
+      background-color: #ffffff;
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
     }
 
     .transactions ul {
@@ -107,11 +130,14 @@
     }
 
     .transactions li {
-      background: rgba(255, 255, 255, 0.1);
+      background-color: #f1f3f6;
       padding: 10px 15px;
       border-radius: 12px;
       margin-bottom: 10px;
       font-size: 15px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
     }
 
     .popup-overlay {
@@ -120,8 +146,7 @@
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(6px);
+      background: rgba(0,0,0,0.4);
       display: none;
       justify-content: center;
       align-items: center;
@@ -129,40 +154,34 @@
     }
 
     .popup {
-      background: rgba(255, 255, 255, 0.15);
-      backdrop-filter: blur(15px);
+      background-color: #ffffff;
       border-radius: 20px;
       padding: 30px 25px;
       width: 350px;
-      color: white;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.1);
       text-align: center;
+      color: #333;
     }
 
     .popup h3 {
       margin-bottom: 20px;
+      color: #2196f3;
     }
 
     .popup input {
       width: 100%;
       padding: 12px 15px;
       margin-bottom: 15px;
-      border: none;
+      border: 1px solid #ddd;
       border-radius: 12px;
-      background: rgba(255, 255, 255, 0.2);
-      color: white;
       font-size: 16px;
       text-align: right;
     }
 
-    .popup input::placeholder {
-      color: #ddd;
-    }
-
     .popup-buttons {
       display: flex;
-      justify-content: space-between;
       gap: 10px;
+      justify-content: space-between;
     }
 
     .popup-buttons button {
@@ -189,13 +208,13 @@
       filter: brightness(1.1);
     }
 
-    @media (max-width: 600px) {
+    @media (max-width: 768px) {
       .dashboard-header {
         flex-direction: column;
         align-items: center;
       }
 
-      .user-info, .balance-box {
+      .glass {
         width: 90%;
       }
 
@@ -206,6 +225,11 @@
   </style>
 </head>
 <body>
+  <header>
+    <h1>منصة الخليج</h1>
+    <button id="logout">تسجيل خروج</button>
+  </header>
+
   <div class="dashboard">
     <div class="dashboard-header">
       <div class="user-info glass" id="userInfo">
@@ -219,8 +243,7 @@
       <div class="balance-box glass">
         <h3>الرصيد المتاح</h3>
         <p class="amount" id="balance">0 ريال سعودي</p>
-        <button id="withdrawBtn" class="glass-btn green-btn">سحب</button>
-        <button id="logout" class="glass-btn red-btn">تسجيل خروج</button>
+        <button id="withdrawBtn" class="glass-btn">سحب</button>
       </div>
     </div>
 
@@ -232,7 +255,6 @@
     </div>
   </div>
 
-  <!-- نافذة السحب -->
   <div class="popup-overlay" id="popupOverlay">
     <div class="popup">
       <h3>طلب سحب</h3>
@@ -273,10 +295,7 @@
 
       try {
         const userDoc = await getDoc(doc(db, "users", uid));
-        if (!userDoc.exists()) {
-          alert("المستخدم غير موجود!");
-          return;
-        }
+        if (!userDoc.exists()) return alert("المستخدم غير موجود!");
         const data = userDoc.data();
 
         document.getElementById("userName").querySelector("span").textContent = data.fullName ?? "--";
@@ -288,8 +307,7 @@
 
         const transactionsList = document.getElementById("transactionsList");
         transactionsList.innerHTML = "";
-
-        if (data.transactions && data.transactions.length > 0) {
+        if (data.transactions?.length > 0) {
           data.transactions.slice().reverse().forEach(tx => {
             const li = document.createElement("li");
             li.textContent = `تم السحب: ${tx.amount} ريال سعودي | البنك: ${tx.bankName} | الحساب: ${tx.iban || tx.accountNumber || "--"} | التاريخ: ${tx.date}`;
@@ -316,10 +334,7 @@
     });
 
     const popupOverlay = document.getElementById("popupOverlay");
-    document.getElementById("withdrawBtn").addEventListener("click", () => {
-      popupOverlay.style.display = "flex";
-    });
-
+    document.getElementById("withdrawBtn").addEventListener("click", () => popupOverlay.style.display = "flex");
     document.getElementById("closePopup").addEventListener("click", () => {
       popupOverlay.style.display = "none";
       clearWithdrawInputs();
@@ -337,44 +352,26 @@
       const amountStr = document.getElementById("amount").value.trim();
       const amount = parseFloat(amountStr);
 
-      if (!bankName || !accountNumber || !amountStr || isNaN(amount) || amount <= 0) {
-        alert("يرجى تعبئة جميع الحقول بشكل صحيح.");
-        return;
-      }
+      if (!bankName || !accountNumber || !amountStr || isNaN(amount) || amount <= 0) return alert("يرجى تعبئة جميع الحقول بشكل صحيح.");
 
       try {
         const userRef = doc(db, "users", uid);
         const userDoc = await getDoc(userRef);
-        if (!userDoc.exists()) {
-          alert("المستخدم غير موجود!");
-          return;
-        }
-
+        if (!userDoc.exists()) return alert("المستخدم غير موجود!");
         const userData = userDoc.data();
 
-        if (amount > (userData.balance ?? 0)) {
-          alert("الرصيد غير كافٍ للسحب.");
-          return;
-        }
+        if (amount > (userData.balance ?? 0)) return alert("الرصيد غير كافٍ للسحب.");
 
         const newBalance = (userData.balance ?? 0) - amount;
-
         await updateDoc(userRef, {
           balance: newBalance,
-          transactions: arrayUnion({
-            bankName,
-            amount,
-            iban: accountNumber,
-            date: new Date().toLocaleString()
-          }),
+          transactions: arrayUnion({ bankName, amount, iban: accountNumber, date: new Date().toLocaleString() }),
         });
 
         alert("تم تنفيذ طلب السحب بنجاح ✅");
-
         loadDashboard();
         popupOverlay.style.display = "none";
         clearWithdrawInputs();
-
       } catch (error) {
         console.error("خطأ أثناء السحب:", error);
         alert("حدث خطأ أثناء عملية السحب.");
