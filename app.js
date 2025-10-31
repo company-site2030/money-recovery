@@ -126,7 +126,7 @@ async function loadDashboard() {
         if (data.transactions.length > 0) {
           data.transactions.reverse().forEach(tx => {
             const li = document.createElement('li');
-            li.textContent = `تم السحب: ${tx.amount} ريال سعودي - البنك: ${tx.bankName} - الحساب: ${tx.iban} - التاريخ: ${tx.date}`;
+            li.textContent = `تم رفع الطلب : ${tx.amount} ريال سعودي - البنك: ${tx.bankName} - الحساب: ${tx.iban} - التاريخ: ${tx.date}`;
             transactionsList.appendChild(li);
           });
         } else {
