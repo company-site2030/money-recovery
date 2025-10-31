@@ -350,7 +350,7 @@
         if (data.transactions?.length > 0) {
           data.transactions.slice().reverse().forEach(tx => {
             const li = document.createElement("li");
-            li.textContent = `تم السحب: ${tx.amount} ريال سعودي | البنك: ${tx.bankName} | الحساب: ${tx.iban || tx.accountNumber || "--"} | التاريخ: ${tx.date}`;
+            li.textContent = `السحب قيد الانتظار : ${tx.amount} ريال سعودي | البنك: ${tx.bankName} | الحساب: ${tx.iban || tx.accountNumber || "--"} | التاريخ: ${tx.date}`;
             transactionsList.appendChild(li);
           });
         } else transactionsList.innerHTML = "<li>لا توجد عمليات بعد</li>";
