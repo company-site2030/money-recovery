@@ -4,83 +4,81 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>منصة الأفراد الخليجية</title>
-  <link rel="stylesheet" href="style.css">
-  <script type="module" src="app.js" defer></script>
-
-  <!-- أيقونة المشاركة -->
-  <meta property="og:title" content="منصة الأفراد الخليجية">
-  <meta property="og:description" content="منصة متخصصة في استرجاع المبالغ المالية للأفراد والشركات في دول الخليج العربي من شركات الفوركس والاستثمار الخارجي.">
-  <meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/6/65/Saudi_Central_Bank_logo.png">
-  <meta property="og:url" content="https://yourwebsite.com">
-  <meta name="twitter:card" content="summary_large_image">
 
   <style>
-    /* الخط العام والخلفية الزجاجية */
+    /* 🌌 خلفية كحلية ملكية */
     body {
       margin: 0;
       font-family: "Tahoma", sans-serif;
-      background: linear-gradient(135deg, #dbefff, #f1f5ff);
+      background: linear-gradient(135deg, #0d1b2a, #1b263b, #0f3460);
       background-attachment: fixed;
-      color: #333;
+      color: #eaeaea;
     }
 
-    /* الهيدر الزجاجي */
+    /* ✨ هيدر زجاجي فاخر */
     header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: rgba(255, 255, 255, 0.15);
-      backdrop-filter: blur(12px);
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(14px);
       padding: 15px 40px;
-      border-radius: 0 0 15px 15px;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+      border-radius: 0 0 20px 20px;
+      border-bottom: 1px solid rgba(255, 215, 0, 0.25);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
       position: sticky;
       top: 0;
       z-index: 10;
     }
 
     .header-logo {
-      font-size: 18px;
+      font-size: 20px;
       font-weight: bold;
-      color: #007b9c;
+      color: #f5c542; /* ذهبي */
+      letter-spacing: 1px;
     }
 
     .header-nav {
-      margin-right: auto; /* يجعلها على اليسار */
+      margin-right: auto;
     }
 
     .header-nav a {
       margin-left: 15px;
       text-decoration: none;
-      padding: 8px 16px;
-      border-radius: 8px;
-      background: rgba(0, 123, 156, 0.6);
-      backdrop-filter: blur(6px);
-      color: #fff;
+      padding: 8px 18px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, rgba(245,196,66,0.8), rgba(245,196,66,0.5));
+      color: #1b263b;
       font-size: 14px;
-      transition: 0.3s;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(245,196,66,0.4);
     }
 
     .header-nav a:hover {
-      background: rgba(0, 123, 156, 0.9);
+      background: linear-gradient(135deg, #f5c542, #ffdf70);
       transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(245,196,66,0.5);
     }
 
+    /* 🎇 الأقسام */
     .section {
       padding: 60px 20px;
       text-align: center;
-      background: rgba(255, 255, 255, 0.25);
-      backdrop-filter: blur(14px);
-      border-radius: 20px;
-      margin: 30px auto;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(18px);
+      border-radius: 25px;
+      margin: 40px auto;
       width: 90%;
       max-width: 1100px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+      border: 1px solid rgba(245,196,66,0.2);
     }
 
     .section h1, .section h2 {
-      color: #007b9c;
+      color: #f5c542;
       margin-bottom: 20px;
+      letter-spacing: 0.5px;
     }
 
     .section p {
@@ -88,8 +86,10 @@
       margin: 0 auto 20px;
       line-height: 1.9;
       font-size: 15.5px;
+      color: #f1f1f1;
     }
 
+    /* 🏛️ الخدمات */
     .services {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -98,32 +98,36 @@
     }
 
     .service {
-      background: rgba(255, 255, 255, 0.2);
-      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 18px;
       padding: 25px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.05);
-      backdrop-filter: blur(10px);
-      transition: transform 0.2s ease;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+      backdrop-filter: blur(14px);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: 1px solid rgba(245,196,66,0.25);
     }
 
     .service:hover {
       transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(245,196,66,0.3);
     }
 
     .service h3 {
-      color: #007b9c;
+      color: #f5c542;
       margin-bottom: 10px;
     }
 
+    /* 🏦 الشركاء */
     .banks {
       max-width: 600px;
       margin: 0 auto;
       text-align: right;
-      background: rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.08);
       padding: 25px;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-      backdrop-filter: blur(10px);
+      border-radius: 14px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(245,196,66,0.25);
     }
 
     .banks ul {
@@ -133,26 +137,32 @@
     }
 
     .banks li {
-      padding: 10px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.2);
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(245,196,66,0.15);
       font-size: 15px;
+      color: #f1f1f1;
     }
 
     .banks li:last-child {
       border-bottom: none;
     }
 
+    /* ⚜️ الفوتر */
     footer {
       text-align: center;
       padding: 20px;
       font-size: 13px;
-      background: rgba(255, 255, 255, 0.2);
-      backdrop-filter: blur(10px);
-      box-shadow: 0 -2px 8px rgba(0,0,0,0.05);
-      margin-top: 40px;
-      border-radius: 20px 20px 0 0;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.25);
+      margin-top: 60px;
+      border-radius: 25px 25px 0 0;
+      border-top: 1px solid rgba(245,196,66,0.2);
+      color: #f5c542;
+      letter-spacing: 0.3px;
     }
 
+    /* 📱 تجاوب */
     @media (max-width: 600px) {
       header {
         flex-direction: column;
