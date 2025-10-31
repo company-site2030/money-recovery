@@ -8,9 +8,11 @@
     body {
       margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #f0f2f5;
+      background: linear-gradient(135deg, #e3f2fd, #bbdefb);
       color: #333;
       direction: rtl;
+      min-height: 100vh;
+      backdrop-filter: blur(12px);
     }
 
     header {
@@ -18,15 +20,17 @@
       justify-content: space-between;
       align-items: center;
       padding: 15px 25px;
-      background-color: #ffffff;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      background: rgba(255, 255, 255, 0.25);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
       position: sticky;
       top: 0;
       z-index: 1000;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+      backdrop-filter: blur(15px);
     }
 
     header h1 {
-      color: #2196f3;
+      color: #0d47a1;
       font-size: 24px;
       margin: 0;
     }
@@ -43,11 +47,11 @@
     }
 
     header button:hover {
-      background-color: #d32f2f;
+      background-color: #c62828;
     }
 
     .dashboard {
-      padding: 20px;
+      padding: 30px 20px;
       max-width: 1200px;
       margin: auto;
     }
@@ -55,43 +59,59 @@
     .dashboard-header {
       display: flex;
       flex-wrap: wrap;
-      gap: 20px;
+      gap: 25px;
       justify-content: space-between;
-      margin-bottom: 30px;
+      margin-bottom: 40px;
     }
 
+    /* البطاقات الزجاجية */
     .card {
-      background: linear-gradient(135deg, #ffffff, #f5f7fa);
+      background: rgba(255, 255, 255, 0.3);
       border-radius: 20px;
       padding: 25px 20px;
       flex: 1 1 300px;
       min-width: 280px;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.05);
-      position: relative;
-      overflow: hidden;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.4);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.12);
     }
 
     .card h3 {
       margin-top: 0;
-      color: #2196f3;
+      color: #0d47a1;
       font-size: 20px;
       margin-bottom: 15px;
+      border-bottom: 1px solid rgba(255,255,255,0.4);
+      padding-bottom: 8px;
     }
 
     .user-data-item {
-      background-color: #f1f3f6;
+      background: rgba(255,255,255,0.5);
       margin-bottom: 12px;
-      padding: 12px 15px;
+      padding: 14px 15px;
       border-radius: 12px;
       font-size: 15px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.4);
+    }
+
+    .user-data-item span {
+      color: #0d47a1;
+      font-weight: 600;
     }
 
     .balance-box .amount {
-      font-size: 32px;
+      font-size: 34px;
       font-weight: 700;
       color: #00c853;
       margin: 15px 0;
@@ -106,7 +126,7 @@
     }
 
     .balance-buttons button {
-      background-color: #2196f3;
+      background-color: #1976d2;
       color: #fff;
       border: none;
       border-radius: 12px;
@@ -117,43 +137,48 @@
     }
 
     .balance-buttons button:hover {
-      background-color: #1976d2;
+      background-color: #1565c0;
     }
 
+    /* سجل العمليات (تصميم كشف حساب بنكي) */
     .transactions {
-      background: #ffffff;
+      background: rgba(255,255,255,0.35);
       border-radius: 20px;
       padding: 25px 20px;
       box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.4);
     }
 
     .transactions h3 {
-      color: #2196f3;
+      color: #0d47a1;
       margin-top: 0;
-      margin-bottom: 15px;
+      margin-bottom: 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.4);
+      padding-bottom: 8px;
     }
 
     .transactions ul {
       list-style: none;
       padding: 0;
-      max-height: 350px;
+      max-height: 400px;
       overflow-y: auto;
     }
 
     .transactions li {
-      background: #f1f3f6;
-      padding: 12px 15px;
+      background: rgba(255,255,255,0.6);
+      padding: 14px 18px;
       border-radius: 15px;
       margin-bottom: 12px;
-      font-size: 14px;
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
+      font-size: 15px;
+      line-height: 1.8;
       box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
+      border: 1px solid rgba(255,255,255,0.4);
     }
 
     .transactions li span {
-      color: #555;
+      display: block;
+      color: #333;
     }
 
     .popup-overlay {
@@ -168,18 +193,20 @@
     }
 
     .popup {
-      background: #ffffff;
+      background: rgba(255,255,255,0.9);
       border-radius: 20px;
       padding: 30px 25px;
       width: 360px;
       box-shadow: 0 8px 30px rgba(0,0,0,0.1);
       text-align: center;
       color: #333;
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.5);
     }
 
     .popup h3 {
       margin-bottom: 20px;
-      color: #2196f3;
+      color: #0d47a1;
     }
 
     .popup input {
@@ -224,7 +251,7 @@
 
     @media (max-width: 768px) {
       .dashboard-header { flex-direction: column; align-items: center; }
-      .card { width: 90%; }
+      .card { width: 95%; }
       .popup { width: 90%; }
     }
   </style>
@@ -275,6 +302,7 @@
     </div>
   </div>
 
+  <!-- 🔹 نفس الكود البرمجي بدون تغيير -->
   <script type="module">
     import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
     import { getFirestore, doc, getDoc, updateDoc, arrayUnion } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
