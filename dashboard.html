@@ -19,7 +19,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 15px 25px;
+      padding: 15px 40px; /* ← تم تعديل المسافة */
       background: rgba(13, 36, 68, 0.75);
       box-shadow: 0 2px 10px rgba(0,0,0,0.4);
       position: sticky;
@@ -59,7 +59,7 @@
     }
 
     .dashboard {
-      padding: 30px 20px;
+      padding: 30px 40px; /* ← تم تعديل المحاذاة */
       max-width: 1200px;
       margin: auto;
     }
@@ -263,6 +263,7 @@
     }
   </style>
 </head>
+
 <body>
   <header>
     <h1>منصة الخليج</h1>
@@ -333,7 +334,6 @@
 
     async function loadDashboard() {
       if (!uid) return;
-
       try {
         const userDoc = await getDoc(doc(db, "users", uid));
         if (!userDoc.exists()) return alert("المستخدم غير موجود!");
@@ -353,7 +353,9 @@
             li.textContent = `السحب قيد الانتظار : ${tx.amount} ريال سعودي | البنك: ${tx.bankName} | الحساب: ${tx.iban || tx.accountNumber || "--"} | التاريخ: ${tx.date}`;
             transactionsList.appendChild(li);
           });
-        } else transactionsList.innerHTML = "<li>لا توجد عمليات بعد</li>";
+        } else {
+          transactionsList.innerHTML = "<li>لا توجد عمليات بعد</li>";
+        }
       } catch (error) {
         console.error(error);
         alert("حدث خطأ أثناء تحميل البيانات.");
@@ -363,13 +365,20 @@
     loadDashboard();
 
     document.getElementById("logout").addEventListener("click", async () => {
-      try { await signOut(auth); window.location.href = "index.html"; }
-      catch (error) { alert("حدث خطأ أثناء تسجيل الخروج: " + error.message); }
+      try {
+        await signOut(auth);
+        window.location.href = "index.html";
+      } catch (error) {
+        alert("حدث خطأ أثناء تسجيل الخروج: " + error.message);
+      }
     });
 
     const popupOverlay = document.getElementById("popupOverlay");
     document.getElementById("withdrawBtn").addEventListener("click", () => popupOverlay.style.display = "flex");
-    document.getElementById("closePopup").addEventListener("click", () => { popupOverlay.style.display = "none"; clearWithdrawInputs(); });
+    document.getElementById("closePopup").addEventListener("click", () => {
+      popupOverlay.style.display = "none";
+      clearWithdrawInputs();
+    });
 
     function clearWithdrawInputs() {
       document.getElementById("bankName").value = "";
@@ -393,13 +402,19 @@
         if (amount > (userData.balance ?? 0)) return alert("الرصيد غير كافٍ للسحب.");
 
         const newBalance = (userData.balance ?? 0) - amount;
-        await updateDoc(userRef, { balance: newBalance, transactions: arrayUnion({ bankName, amount, iban: accountNumber, date: new Date().toLocaleString() }) });
+        await updateDoc(userRef, {
+          balance: newBalance,
+          transactions: arrayUnion({ bankName, amount, iban: accountNumber, date: new Date().toLocaleString() })
+        });
 
         alert("تم تنفيذ طلب السحب بنجاح ✅");
         loadDashboard();
         popupOverlay.style.display = "none";
         clearWithdrawInputs();
-      } catch (error) { console.error(error); alert("حدث خطأ أثناء عملية السحب."); }
+      } catch (error) {
+        console.error(error);
+        alert("حدث خطأ أثناء عملية السحب.");
+      }
     });
   </script>
 </body>
